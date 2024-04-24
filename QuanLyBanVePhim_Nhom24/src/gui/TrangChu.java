@@ -22,6 +22,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 public class TrangChu extends JFrame {
 
@@ -60,73 +66,122 @@ public class TrangChu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		panel.setBackground(new Color(255, 0, 0));
-		panel.setBounds(0, 0, 1973, 164);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		panel.setBackground(new Color(255, 255, 255));
+		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("QUẢN LÝ RẠP CHIẾU PHIM");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-		lblNewLabel.setBounds(760, 54, 416, 72);
-		panel.add(lblNewLabel);
+		JPanel panel_6 = new JPanel();
+		panel.add(panel_6, BorderLayout.CENTER);
+		panel_6.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("BÁN VÉ");
-		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Iconsmind-Outline-Movie-Ticket.128.png"));
-		btnNewButton.setBounds(480, 284, 277, 221);
-		contentPane.add(btnNewButton);
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(255, 255, 255));
+		panel_6.add(panel_7);
+		panel_7.setLayout(new GridLayout(2,3));
 		
-		JButton btnNewButton_2 = new JButton("RẠP");
-		btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNewButton_2.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Iconsmind-Outline-Cinema.128.png"));
-		btnNewButton_2.setBounds(775, 576, 277, 221);
-		contentPane.add(btnNewButton_2);
+		JButton btnBanVe = new JButton("");
+		btnBanVe.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Icons8-Windows-8-Cinema-Ticket.128.png")));
+		btnBanVe.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnBanVe);
 		
-		JButton btnNhnVin = new JButton("NHÂN VIÊN");
-		btnNhnVin.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNhnVin.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Hopstarter-Soft-Scraps-User-Administrator-Blue.128.png"));
-		btnNhnVin.setBounds(775, 284, 277, 221);
-		contentPane.add(btnNhnVin);
+		JButton btnNhanVien = new JButton("");
+		btnNhanVien.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Hopstarter-Soft-Scraps-User-Administrator-Blue.128.png")));
+		btnNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnNhanVien);
 		
-		JButton btnPhim = new JButton("PHIM");
-		btnPhim.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnPhim.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Iconoir-Team-Iconoir-Cinema-old.128.png"));
-		btnPhim.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnPhim.setBounds(1070, 576, 277, 221);
-		contentPane.add(btnPhim);
+		JButton btnKhachHang = new JButton("");
+		btnKhachHang.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Custom-Icon-Design-Silky-Line-User-Men.128.png")));
+		btnKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnKhachHang);
 		
-		JButton btnKhchHng = new JButton("KHÁCH HÀNG");
-		btnKhchHng.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		btnKhchHng.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Custom-Icon-Design-Silky-Line-User-Men.128.png"));
-		btnKhchHng.setBounds(1070, 285, 277, 221);
-		contentPane.add(btnKhchHng);
+		JButton btnDichVu = new JButton("");
+		btnDichVu.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconarchive-Fat-Sugar-Food-Popcorn.128.png")));
+		btnDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnDichVu);
 		
-		JButton btnNewButton_3 = new JButton("ĐĂNG XUẤT");
-		btnNewButton_3.setBackground(new Color(255, 0, 0));
-		btnNewButton_3.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnNewButton_3.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Icons8-Windows-8-User-Interface-Logout.64.png"));
-		btnNewButton_3.setBounds(1404, 722, 238, 73);
-		contentPane.add(btnNewButton_3);
+		JButton btnRap = new JButton("");
+		btnRap.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconsmind-Outline-Cinema.128.png")));
+		btnRap.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnRap);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nhân viên: ");
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(1431, 623, 183, 47);
-		contentPane.add(lblNewLabel_1);
+		JButton btnPhim = new JButton("");
+		btnPhim.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconoir-Team-Iconoir-Cinema-old.128.png")));
+		btnPhim.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_7.add(btnPhim);
 		
-		lblThoiGian = new JLabel("");
-		lblThoiGian.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblThoiGian.setBounds(1431, 675, 183, 47);
-		contentPane.add(lblThoiGian);
+		Component rigidArea_4 = Box.createRigidArea(new Dimension(1359, 131));
+		panel.add(rigidArea_4, BorderLayout.NORTH);
 		
-		JButton btnNewButton_1 = new JButton("DỊCH VỤ");
-		btnNewButton_1.setBounds(480, 574, 277, 221);
-		contentPane.add(btnNewButton_1);
-		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\Duy Tien\\Downloads\\IMAGES\\Iconarchive-Fat-Sugar-Food-Popcorn.128.png"));
+		Component rigidArea_4_1 = Box.createRigidArea(new Dimension(1359, 143));
+		panel.add(rigidArea_4_1, BorderLayout.SOUTH);
+		
+		Component rigidArea_4_2 = Box.createRigidArea(new Dimension(242, 289));
+		panel.add(rigidArea_4_2, BorderLayout.WEST);
+		
+		Component rigidArea_4_3 = Box.createRigidArea(new Dimension(252, 289));
+		rigidArea_4_3.setEnabled(false);
+		panel.add(rigidArea_4_3, BorderLayout.EAST);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 0, 0));
+		contentPane.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 0, 0));
+		panel_1.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_2 = new JLabel("PHẦN MỀM QUẢN LÝ RẠP CHIẾU PHIM");
+		lblNewLabel_2.setBackground(new Color(255, 0, 0));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 0, 0));
+		panel_1.add(panel_3, BorderLayout.EAST);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(255, 0, 0));
+		panel_3.add(panel_4);
+		panel_4.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("Nhân viên: Nguyễn Duy Tiến");
+		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_4.add(lblNewLabel_3, BorderLayout.NORTH);
+		
+		lblThoiGian = new JLabel("Thời gian: ");
+		lblThoiGian.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_4.add(lblThoiGian, BorderLayout.CENTER);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(255, 0, 0));
+		panel_4.add(panel_5, BorderLayout.SOUTH);
+		panel_5.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton_4 = new JButton("Đăng xuất");
+		btnNewButton_4.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		panel_5.add(btnNewButton_4, BorderLayout.CENTER);
+		
+		Component rigidArea_2 = Box.createRigidArea(new Dimension(38, 35));
+		panel_5.add(rigidArea_2, BorderLayout.WEST);
+		
+		Component rigidArea_3 = Box.createRigidArea(new Dimension(251, 35));
+		panel_5.add(rigidArea_3, BorderLayout.EAST);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(280);
+		panel_4.add(horizontalStrut, BorderLayout.EAST);
+		
+		Component rigidArea = Box.createRigidArea(new Dimension(1359, 67));
+		panel_1.add(rigidArea, BorderLayout.NORTH);
+		
+		Component rigidArea_1 = Box.createRigidArea(new Dimension(1359, 71));
+		panel_1.add(rigidArea_1, BorderLayout.SOUTH);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(417);
+		panel_1.add(horizontalStrut_1, BorderLayout.WEST);
 		updateTime();
 	}
 	private String updateTime() {
@@ -136,9 +191,6 @@ public class TrangChu extends JFrame {
 		// Định dạng thời gian
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String formattedTime = dateFormat.format(currentTimeDate);
-
-		// Hiển thị thời gian trên jlbl
-		lblThoiGian.setText(formattedTime+"");
 		Timer timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
