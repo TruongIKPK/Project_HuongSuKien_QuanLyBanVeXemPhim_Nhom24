@@ -230,12 +230,6 @@ public class ThanhToan extends JFrame {
 		Component rigidArea_4 = Box.createRigidArea(new Dimension(20, 20));
 		verticalBox_5.add(rigidArea_4);
 		
-		JButton btnNewButton = new JButton("QUAY LẠI");
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBackground(new Color(3, 89, 157));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
-		verticalBox_5.add(btnNewButton);
-		
 		JPanel panel_12 = new JPanel();
 		panel_2.add(panel_12);
 		
@@ -278,10 +272,24 @@ public class ThanhToan extends JFrame {
 		verticalBox_6.add(rigidArea_9);
 		
 		JButton btnNewButton_1 = new JButton("THANH TOÁN");
+		verticalBox_6.add(btnNewButton_1);
 		btnNewButton_1.setBackground(new Color(3, 89, 157));
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		verticalBox_6.add(btnNewButton_1);
+		
+		JPanel panel_38 = new JPanel();
+		verticalBox.add(panel_38);
+		panel_38.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_39 = new JPanel();
+		panel_38.add(panel_39, BorderLayout.NORTH);
+		
+		Box horizontalBox_14 = Box.createHorizontalBox();
+		panel_39.add(horizontalBox_14);
+		
+		JLabel lblNewLabel_38 = new JLabel("Dịch Vụ");
+		lblNewLabel_38.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		horizontalBox_14.add(lblNewLabel_38);
 		
 		JPanel panel_7 = new JPanel();
 		contentPane.add(panel_7, BorderLayout.CENTER);
@@ -809,14 +817,25 @@ public class ThanhToan extends JFrame {
 		panel_36.add(panel_37, BorderLayout.NORTH);
 		panel_37.setLayout(new BorderLayout(0, 0));
 		
-		Component rigidArea_32 = Box.createRigidArea(new Dimension(20, 20));
+		Component rigidArea_32 = Box.createRigidArea(new Dimension(1079, 20));
 		panel_37.add(rigidArea_32, BorderLayout.NORTH);
 		
-		JButton btnNewButton_13 = new JButton("Trở Lại");
+		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
+		btnNewButton_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DichVu dichvu = new DichVu();
+				dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				dichvu.setExtendedState(MAXIMIZED_BOTH);
+				dichvu.setVisible(true);
+                setVisible(false);
+			}
+		});
+		btnNewButton_13.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_13.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_37.add(btnNewButton_13, BorderLayout.WEST);
 		
-		Component rigidArea_57 = Box.createRigidArea(new Dimension(20, 20));
+		Component rigidArea_57 = Box.createRigidArea(new Dimension(1075, 20));
 		panel_37.add(rigidArea_57, BorderLayout.SOUTH);
 		
 		
