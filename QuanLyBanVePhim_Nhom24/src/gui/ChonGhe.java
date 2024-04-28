@@ -34,20 +34,19 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     // 0 = null, 1 = Thường, 2 = VIP, 3 = Ghê Đôi.
     private int loaiGheDaChon = 0;
 	private ArrayList<Ghe> dsGhe = new ArrayList<>(); 
-    
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ChonGhe frame = new ChonGhe();
-                    frame.setExtendedState(MAXIMIZED_BOTH);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	 public static void main(String[] args) {
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                    ChonGhe frame = new ChonGhe();
+	                    frame.setExtendedState(MAXIMIZED_BOTH);
+	                    frame.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+	    }
 
     public ChonGhe() {
      	// Test
@@ -89,7 +88,38 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	
     	Box verticalBox = Box.createVerticalBox();
     	verticalBox.setBackground(new Color(23, 26, 31));
-    	panel.add(verticalBox);
+    	panel.add(verticalBox, BorderLayout.NORTH);
+    	
+    	Box horizontalBox_10_1 = Box.createHorizontalBox();
+    	verticalBox.add(horizontalBox_10_1);
+    	
+    	Box verticalBox_3 = Box.createVerticalBox();
+    	horizontalBox_10_1.add(verticalBox_3);
+    	
+    	Component rigidArea_6_1 = Box.createRigidArea(new Dimension(20, 20));
+    	verticalBox_3.add(rigidArea_6_1);
+    	
+    	JPanel panel_19 = new JPanel();
+    	verticalBox_3.add(panel_19);
+    	panel_19.setLayout(new BorderLayout(0, 0));
+    	
+    	JButton btnNewButton_6 = new JButton("Thoát");
+    	btnNewButton_6.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+                TrangChu trangchu = new TrangChu();
+                trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                trangchu.setExtendedState(MAXIMIZED_BOTH);
+                trangchu.setVisible(true);
+                setVisible(false);
+            }   		
+    	});
+    	btnNewButton_6.setBorderPainted(false);
+    	btnNewButton_6.setForeground(Color.WHITE);
+    	btnNewButton_6.setBackground(new Color(90, 101, 124));
+    	btnNewButton_6.setHorizontalAlignment(SwingConstants.LEFT);
+    	btnNewButton_6.setFont(new Font("Dialog", Font.BOLD, 25));
+    	panel_19.add(btnNewButton_6, BorderLayout.NORTH);
     	
     	Box horizontalBox_10 = Box.createHorizontalBox();
     	verticalBox.add(horizontalBox_10);
@@ -243,6 +273,15 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	verticalBox_2.add(rigidArea_2);
     	
     	btndatVe = new JButton("Đặt Vé");
+    	btndatVe.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			DichVu dichvu = new DichVu();
+				dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				dichvu.setExtendedState(MAXIMIZED_BOTH);
+				dichvu.setVisible(true);
+                setVisible(false);
+    		}
+    	});
     	btndatVe.setForeground(Color.WHITE);
     	btndatVe.setBackground(Color.RED);
     	btndatVe.setBorderPainted(false);

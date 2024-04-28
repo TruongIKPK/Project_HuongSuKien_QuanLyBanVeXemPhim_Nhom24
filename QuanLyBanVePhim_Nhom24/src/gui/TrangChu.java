@@ -63,6 +63,7 @@ public class TrangChu extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(false);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -78,36 +79,77 @@ public class TrangChu extends JFrame {
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(255, 255, 255));
 		panel_6.add(panel_7);
-		panel_7.setLayout(new GridLayout(2,3));
+		GridLayout gl_panel_7 = new GridLayout(2,3);
+		gl_panel_7.setVgap(2);
+		gl_panel_7.setHgap(2);
+		panel_7.setLayout(gl_panel_7);
 		
-		JButton btnBanVe = new JButton("");
+		JButton btnBanVe = new JButton("Bán Vé");
+		btnBanVe.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnBanVe.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Icons8-Windows-8-Cinema-Ticket.128.png")));
-		btnBanVe.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnBanVe.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnBanVe);
+		btnBanVe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+            }
+        });
 		
-		JButton btnNhanVien = new JButton("");
+		JButton btnNhanVien = new JButton("Nhân Viên");
+		btnNhanVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QuanLyNhanVien qlnv = new QuanLyNhanVien();
+				qlnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlnv.setExtendedState(MAXIMIZED_BOTH);
+				qlnv.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnNhanVien.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Hopstarter-Soft-Scraps-User-Administrator-Blue.128.png")));
-		btnNhanVien.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnNhanVien.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnNhanVien);
 		
-		JButton btnKhachHang = new JButton("");
+		JButton btnKhachHang = new JButton("Khách Hàng");
+		btnKhachHang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QuanLyKhachHang qlkh = new QuanLyKhachHang();
+				qlkh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlkh.setExtendedState(MAXIMIZED_BOTH);
+				qlkh.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnKhachHang.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Custom-Icon-Design-Silky-Line-User-Men.128.png")));
-		btnKhachHang.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnKhachHang.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnKhachHang);
 		
-		JButton btnDichVu = new JButton("");
+		JButton btnDichVu = new JButton("Dịch Vụ");
+		btnDichVu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DichVu dichvu = new DichVu();
+				dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				dichvu.setExtendedState(MAXIMIZED_BOTH);
+				dichvu.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnDichVu.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconarchive-Fat-Sugar-Food-Popcorn.128.png")));
-		btnDichVu.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnDichVu.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnDichVu);
 		
-		JButton btnRap = new JButton("");
+		JButton btnRap = new JButton("QL Phim");
 		btnRap.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconsmind-Outline-Cinema.128.png")));
-		btnRap.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnRap.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnRap);
 		
-		JButton btnPhim = new JButton("");
+		JButton btnPhim = new JButton("Thống Kê");
 		btnPhim.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconoir-Team-Iconoir-Cinema-old.128.png")));
-		btnPhim.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		btnPhim.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnPhim);
 		
 		Component rigidArea_4 = Box.createRigidArea(new Dimension(1359, 131));
@@ -124,40 +166,43 @@ public class TrangChu extends JFrame {
 		panel.add(rigidArea_4_3, BorderLayout.EAST);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 0, 0));
+		panel_1.setBackground(new Color(64, 105, 229));
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 0, 0));
+		panel_2.setBackground(new Color(64, 105, 229));
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel("PHẦN MỀM QUẢN LÝ RẠP CHIẾU PHIM");
-		lblNewLabel_2.setBackground(new Color(255, 0, 0));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBackground(new Color(64, 105, 229));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 30));
 		panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 0, 0));
+		panel_3.setBackground(new Color(64, 105, 229));
 		panel_1.add(panel_3, BorderLayout.EAST);
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(255, 0, 0));
+		panel_4.setBackground(new Color(64, 105, 229));
 		panel_3.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_3 = new JLabel("Nhân viên: Nguyễn Duy Tiến");
-		lblNewLabel_3.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
 		panel_4.add(lblNewLabel_3, BorderLayout.NORTH);
 		
 		lblThoiGian = new JLabel("Thời gian: ");
-		lblThoiGian.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		lblThoiGian.setForeground(Color.WHITE);
+		lblThoiGian.setFont(new Font("Tahoma", Font.BOLD, 24));
 		panel_4.add(lblThoiGian, BorderLayout.CENTER);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(255, 0, 0));
+		panel_5.setBackground(new Color(64, 105, 229));
 		panel_4.add(panel_5, BorderLayout.SOUTH);
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
@@ -165,14 +210,11 @@ public class TrangChu extends JFrame {
 		btnNewButton_4.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		panel_5.add(btnNewButton_4, BorderLayout.CENTER);
 		
-		Component rigidArea_2 = Box.createRigidArea(new Dimension(38, 35));
+		Component rigidArea_2 = Box.createRigidArea(new Dimension(92, 35));
 		panel_5.add(rigidArea_2, BorderLayout.WEST);
 		
-		Component rigidArea_3 = Box.createRigidArea(new Dimension(251, 35));
+		Component rigidArea_3 = Box.createRigidArea(new Dimension(100, 35));
 		panel_5.add(rigidArea_3, BorderLayout.EAST);
-		
-		Component horizontalStrut = Box.createHorizontalStrut(280);
-		panel_4.add(horizontalStrut, BorderLayout.EAST);
 		
 		Component rigidArea = Box.createRigidArea(new Dimension(1359, 67));
 		panel_1.add(rigidArea, BorderLayout.NORTH);
@@ -180,8 +222,9 @@ public class TrangChu extends JFrame {
 		Component rigidArea_1 = Box.createRigidArea(new Dimension(1359, 71));
 		panel_1.add(rigidArea_1, BorderLayout.SOUTH);
 		
-		Component horizontalStrut_1 = Box.createHorizontalStrut(417);
-		panel_1.add(horizontalStrut_1, BorderLayout.WEST);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setPreferredSize(lblNewLabel_3.getPreferredSize());
+		panel_1.add(lblNewLabel, BorderLayout.WEST);
 		updateTime();
 	}
 	private String updateTime() {
