@@ -11,7 +11,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Color;
 
 public class LichSu extends JFrame {
 
@@ -58,7 +66,18 @@ public class LichSu extends JFrame {
 		panel.add(horizontalBox);
 		
 		JButton btnNewButton = new JButton("Quay lại");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(3, 89, 157));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
 		horizontalBox.add(btnNewButton);
+		
+		Component rigidArea = Box.createRigidArea(new Dimension(1200, 20));
+		horizontalBox.add(rigidArea);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Theo ngày", "Theo phim", "Theo tổng tiền"}));
+		horizontalBox.add(comboBox);
 		
 		JPanel panel_1 = new JPanel();
 		verticalBox.add(panel_1);
@@ -74,11 +93,22 @@ public class LichSu extends JFrame {
         table.setModel(new DefaultTableModel(
         	new Object[][] {
         		{"1", "20/04/2024", "22:40", "The Matrix", "P2", "F9", "100000", "\u0110\u00E3 \u0111\u1EB7t"},
+        		{null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null, null, null},
         	},
         	new String[] {
         		"M\u00E3", "Ng\u00E0y", "Th\u1EDDi gian", "Phim", "Ph\u00F2ng", "Gh\u1EBF", "T\u1ED5ng ti\u1EC1n", "Tr\u1EA1ng th\u00E1i"
         	}
         ));
+        
+        table.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		// Đặt chiều cao mới cho từng hàng trong bảng
+		table.setRowHeight(35);
+		// Tăng kích thước của tiêu đề cột
+		JTableHeader header = table.getTableHeader();
+		Font headerFont = header.getFont();
+		header.setFont(new Font(headerFont.getName(), Font.BOLD, 25));
 
         // Thêm table vào JScrollPane
         scrollPane.setViewportView(table);

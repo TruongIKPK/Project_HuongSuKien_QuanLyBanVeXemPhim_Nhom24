@@ -77,7 +77,7 @@ public class ThanhToan extends JFrame {
 	 */
 	public ThanhToan() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1709, 713);
+		setBounds(100, 100, 1709, 850);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -110,8 +110,8 @@ public class ThanhToan extends JFrame {
 		panel_3.add(horizontalBox);
 		
 		JLabel lblNewLabel = new JLabel("");
-		ImageIcon icon = new ImageIcon("src//test (1).png");
-    	Image img = icon.getImage().getScaledInstance(150, 250, Image.SCALE_DEFAULT); 
+		ImageIcon icon = new ImageIcon("C:\\Users\\DELL\\Pictures\\Screenshots\\Screenshot 2024-04-19 164659.png");
+    	Image img = icon.getImage().getScaledInstance(150, 200, Image.SCALE_DEFAULT); 
     	ImageIcon newIcon = new ImageIcon(img);
     	lblNewLabel.setIcon(newIcon);
 		horizontalBox.add(lblNewLabel);
@@ -159,7 +159,7 @@ public class ThanhToan extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		verticalBox_3.add(lblNewLabel_4);
 		
-		Component rigidArea_35 = Box.createRigidArea(new Dimension(60, 20));
+		Component rigidArea_35 = Box.createRigidArea(new Dimension(30, 20));
 		panel_5.add(rigidArea_35);
 		
 		JPanel panel_6 = new JPanel();
@@ -195,13 +195,6 @@ public class ThanhToan extends JFrame {
 		Box verticalBox_5 = Box.createVerticalBox();
 		panel_11.add(verticalBox_5);
 		
-		JLabel lblNewLabel_10 = new JLabel("Rạp chiếu");
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		verticalBox_5.add(lblNewLabel_10);
-		
-		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
-		verticalBox_5.add(rigidArea);
-		
 		JLabel lblNewLabel_11 = new JLabel("Ngày chiếu");
 		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		verticalBox_5.add(lblNewLabel_11);
@@ -236,13 +229,6 @@ public class ThanhToan extends JFrame {
 		Box verticalBox_6 = Box.createVerticalBox();
 		panel_12.add(verticalBox_6);
 		
-		JLabel lblNewLabel_15 = new JLabel("Beta Quang Trung");
-		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		verticalBox_6.add(lblNewLabel_15);
-		
-		Component rigidArea_5 = Box.createRigidArea(new Dimension(20, 20));
-		verticalBox_6.add(rigidArea_5);
-		
 		JLabel lblNewLabel_16 = new JLabel("15/04/2024");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		verticalBox_6.add(lblNewLabel_16);
@@ -271,12 +257,6 @@ public class ThanhToan extends JFrame {
 		Component rigidArea_9 = Box.createRigidArea(new Dimension(20, 20));
 		verticalBox_6.add(rigidArea_9);
 		
-		JButton btnNewButton_1 = new JButton("THANH TOÁN");
-		verticalBox_6.add(btnNewButton_1);
-		btnNewButton_1.setBackground(new Color(3, 89, 157));
-		btnNewButton_1.setForeground(Color.WHITE);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		
 		JPanel panel_38 = new JPanel();
 		verticalBox.add(panel_38);
 		panel_38.setLayout(new BorderLayout(0, 0));
@@ -284,12 +264,33 @@ public class ThanhToan extends JFrame {
 		JPanel panel_39 = new JPanel();
 		panel_38.add(panel_39, BorderLayout.NORTH);
 		
-		Box horizontalBox_14 = Box.createHorizontalBox();
-		panel_39.add(horizontalBox_14);
+		JLabel lblNewLabel_10 = new JLabel("Dịch vụ");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		panel_39.add(lblNewLabel_10);
 		
-		JLabel lblNewLabel_38 = new JLabel("Dịch Vụ");
-		lblNewLabel_38.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		horizontalBox_14.add(lblNewLabel_38);
+		JPanel panel_40 = new JPanel();
+		panel_38.add(panel_40, BorderLayout.SOUTH);
+		panel_40.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		Box verticalBox_13 = Box.createVerticalBox();
+		panel_40.add(verticalBox_13);
+		
+		JLabel lblNewLabel_15 = new JLabel("MV_TRANSFORMERS 7 LED BUCKET COMBO");
+		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		verticalBox_13.add(lblNewLabel_15);
+		
+		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
+		verticalBox_13.add(rigidArea);
+		
+		JPanel panel_41 = new JPanel();
+		verticalBox.add(panel_41);
+		panel_41.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton = new JButton("THANH TOÁN");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(3, 89, 157));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
+		panel_41.add(btnNewButton);
 		
 		JPanel panel_7 = new JPanel();
 		contentPane.add(panel_7, BorderLayout.CENTER);
@@ -814,6 +815,7 @@ public class ThanhToan extends JFrame {
 		panel_36.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_37 = new JPanel();
+		panel_37.setBackground(new Color(255, 255, 255));
 		panel_36.add(panel_37, BorderLayout.NORTH);
 		panel_37.setLayout(new BorderLayout(0, 0));
 		
@@ -821,6 +823,7 @@ public class ThanhToan extends JFrame {
 		panel_37.add(rigidArea_32, BorderLayout.NORTH);
 		
 		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
+		btnNewButton_13.setForeground(new Color(255, 255, 255));
 		btnNewButton_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DichVu dichvu = new DichVu();
@@ -830,7 +833,7 @@ public class ThanhToan extends JFrame {
                 setVisible(false);
 			}
 		});
-		btnNewButton_13.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_13.setBackground(new Color(3, 89, 157));
 		btnNewButton_13.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_37.add(btnNewButton_13, BorderLayout.WEST);
