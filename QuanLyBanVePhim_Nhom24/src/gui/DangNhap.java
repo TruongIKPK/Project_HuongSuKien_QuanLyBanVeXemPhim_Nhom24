@@ -5,7 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import dao.TaiKhoanDAO;
+import entity.TaiKhoan;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -21,7 +25,8 @@ public class DangNhap extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnNewButton;
-
+	public static TaiKhoan taiKhoan;
+	private TaiKhoanDAO taiKhoanDAO;
 	/**
 	 * Launch the application.
 	 */
@@ -42,6 +47,11 @@ public class DangNhap extends JFrame {
 	 * Create the frame.
 	 */
 	public DangNhap() {
+		try {
+            taiKhoanDAO = (TaiKhoanDAO) TaiKhoanDAO.getInstance();
+        } catch (Exception e) {
+            System.out.println("Loi Ket Noi");
+        }
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 569, 376);
 		setLocationRelativeTo(null);
@@ -74,8 +84,38 @@ public class DangNhap extends JFrame {
 		textField.setColumns(10);
 		
 		btnNewButton = new JButton("ĐĂNG NHẬP");
+		getRootPane().setDefaultButton(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+				String tenTaiKhoan = textField.getText().trim();
+                String matKhau = String.valueOf(passwordField.getPassword());
+                // kiểm tra dữ liệu
+                if (tenTaiKhoan.isEmpty()) {
+                    JOptionPane.showMessageDialog(null,"Vui lòng nhập tên người dùng");
+                } else if (matKhau.isEmpty()) {
+                	JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu");
+                }
+                // lấy tài khoản từ db lên
+                try {
+                	taiKhoan = taiKhoanDAO.getTaiKhoan(tenTaiKhoan);
+                    
+                	System.out.println("đã tới đây!");
+                } catch (Exception e1) { 
+                	JOptionPane.showMessageDialog(null,e1.getMessage());
+                    return;
+                }
+                String tenTKSQL = taiKhoan.getTenDangNhap().trim();
+                String matKhauSQL = taiKhoan.getMatKhau().trim();
+                if (tenTaiKhoan.equals(tenTKSQL) && matKhau.equals(matKhauSQL)) {
+                	System.out.println("Dang Nhap Thanh cong!");
+                    setVisible(false);
+                    new TrangChu().setVisible(true);
+                } else {
+                	JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu");
+                    textField.requestFocus();
+                    passwordField.selectAll();
+                }
 			}
 		});
 		btnNewButton.setForeground(Color.white);
@@ -89,5 +129,6 @@ public class DangNhap extends JFrame {
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passwordField.setBounds(35, 184, 487, 42);
 		contentPane.add(passwordField);
+		
 	}
 }

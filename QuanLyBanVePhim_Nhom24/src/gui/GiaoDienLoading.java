@@ -55,7 +55,8 @@ public class GiaoDienLoading extends JFrame {
                 } finally {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            loadingLabel.setText("");
+                            new DangNhap().setVisible(true);
+                            setVisible(false);
                         }
                     });
                 }

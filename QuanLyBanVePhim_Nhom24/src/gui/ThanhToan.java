@@ -270,7 +270,7 @@ public class ThanhToan extends JFrame {
 		
 		JPanel panel_40 = new JPanel();
 		panel_38.add(panel_40, BorderLayout.SOUTH);
-		panel_40.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_40.setLayout(new BoxLayout(panel_40, BoxLayout.X_AXIS));
 		
 		Box verticalBox_13 = Box.createVerticalBox();
 		panel_40.add(verticalBox_13);
@@ -278,6 +278,14 @@ public class ThanhToan extends JFrame {
 		JLabel lblNewLabel_15 = new JLabel("MV_TRANSFORMERS 7 LED BUCKET COMBO");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		verticalBox_13.add(lblNewLabel_15);
+		
+		JLabel lblNewLabel_15_1 = new JLabel("MV_TRANSFORMERS 7 LED BUCKET COMBO");
+		lblNewLabel_15_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		verticalBox_13.add(lblNewLabel_15_1);
+		
+		JLabel lblNewLabel_15_2 = new JLabel("MV_TRANSFORMERS 7 LED BUCKET COMBO");
+		lblNewLabel_15_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		verticalBox_13.add(lblNewLabel_15_2);
 		
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 		verticalBox_13.add(rigidArea);

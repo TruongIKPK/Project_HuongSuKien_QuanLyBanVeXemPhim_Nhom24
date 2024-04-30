@@ -147,7 +147,16 @@ public class TrangChu extends JFrame {
 		btnRap.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnRap);
 		
-		JButton btnPhim = new JButton("Thống Kê");
+		JButton btnPhim = new JButton("Lịch Sử");
+		btnPhim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LichSu lichsu = new LichSu();
+				lichsu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				lichsu.setExtendedState(MAXIMIZED_BOTH);
+				lichsu.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnPhim.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconoir-Team-Iconoir-Cinema-old.128.png")));
 		btnPhim.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_7.add(btnPhim);

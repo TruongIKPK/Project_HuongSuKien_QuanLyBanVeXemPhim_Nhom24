@@ -71,7 +71,7 @@ public class GiaoDienLayVe1 extends JFrame {
 		Component rigidArea_1 = Box.createRigidArea(new Dimension(169, 844));
 		getContentPane().add(rigidArea_1, BorderLayout.WEST);
 		
-		Component rigidArea_2 = Box.createRigidArea(new Dimension(88, 685));
+		Component rigidArea_2 = Box.createRigidArea(new Dimension(169, 685));
 		getContentPane().add(rigidArea_2, BorderLayout.EAST);
 		
 		JPanel panel = new JPanel();
@@ -115,26 +115,23 @@ public class GiaoDienLayVe1 extends JFrame {
 		panel_4.add(btnNewButton);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(49, 62, 1159, 567);
+		panel_5.setBounds(0, 73, 1159, 567);
 		panel_2.add(panel_5);
 		panel_5.setBackground(new Color(255, 250, 205));
-		panel_5.setLayout(null);
+		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel("VÉ XEM PHIM");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(378, 10, 418, 54);
 		panel_5.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("GẶP LẠI CHỊ BẦU");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 30));
-		lblNewLabel_3.setBounds(378, 61, 418, 61);
 		panel_5.add(lblNewLabel_3);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(255, 250, 205));
-		panel_6.setBounds(51, 154, 1058, 484);
 		panel_5.add(panel_6);
 		panel_6.setLayout(null);
 		
