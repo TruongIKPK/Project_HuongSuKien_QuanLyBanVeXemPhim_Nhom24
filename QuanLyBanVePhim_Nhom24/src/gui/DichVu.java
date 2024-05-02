@@ -95,11 +95,18 @@ public class DichVu extends JFrame {
 		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
 		btnNewButton_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TrangChu trangchu = new TrangChu();
-				trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				trangchu.setExtendedState(MAXIMIZED_BOTH);
-				trangchu.setVisible(true);
-                setVisible(false);
+				TrangChu trangchu;
+				try {
+					trangchu = new TrangChu();
+					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					trangchu.setExtendedState(MAXIMIZED_BOTH);
+					trangchu.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
