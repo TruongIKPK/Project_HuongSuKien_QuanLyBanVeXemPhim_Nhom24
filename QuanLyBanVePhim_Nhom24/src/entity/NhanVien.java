@@ -20,7 +20,6 @@ public class NhanVien {
 		super();
 		this.maNV = maNV;
 	}
-	
 	public NhanVien(int maNV, String tenNV, String ngaySinh, boolean phai, String sdt, String email, ChucVu chucVu,
 			TaiKhoan taiKhoan) {
 		super();
@@ -69,7 +68,6 @@ public class NhanVien {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public ChucVu getChucVu() {
 		return chucVu;
 	}

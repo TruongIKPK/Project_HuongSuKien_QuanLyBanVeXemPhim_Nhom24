@@ -107,11 +107,17 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	btnNewButton_6.addActionListener(new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
-                TrangChu trangchu = new TrangChu();
-                trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                trangchu.setExtendedState(MAXIMIZED_BOTH);
-                trangchu.setVisible(true);
-                setVisible(false);
+                TrangChu trangchu;
+				try {
+					trangchu = new TrangChu();
+					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                trangchu.setExtendedState(MAXIMIZED_BOTH);
+	                trangchu.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}    
             }   		
     	});
     	btnNewButton_6.setBorderPainted(false);

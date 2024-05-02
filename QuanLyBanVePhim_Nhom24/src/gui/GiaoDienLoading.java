@@ -3,9 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GiaoDienLoading extends JFrame {
-    private JProgressBar progressBar;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JProgressBar progressBar;
     private JLabel loadingLabel;
-
+    
     public GiaoDienLoading() {
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

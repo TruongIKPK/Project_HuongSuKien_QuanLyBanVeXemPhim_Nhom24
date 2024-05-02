@@ -3,46 +3,32 @@ package entity;
 import java.util.Objects;
 
 public class TaiKhoan {
+	private int maTaiKhoan;
 	private String tenDangNhap;
 	private String matKhau;
 	private boolean kichHoat;
-	private int maNV;
 	public TaiKhoan() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TaiKhoan(String tenDangNhap) {
+
+	public TaiKhoan(int maTaiKhoan) {
 		super();
-		this.tenDangNhap = tenDangNhap;
+		this.maTaiKhoan = maTaiKhoan;
 	}
 
-	public int getMaNV() {
-		return maNV;
-	}
-	public void setMaNV(int maNV) {
-		this.maNV = maNV;
-	}
-	public TaiKhoan(String tenDangNhap, String matKhau, boolean kichHoat, int maNV) {
+	public TaiKhoan(int maTaiKhoan, String tenDangNhap, String matKhau, boolean kichHoat) {
 		super();
+		this.maTaiKhoan = maTaiKhoan;
 		this.tenDangNhap = tenDangNhap;
 		this.matKhau = matKhau;
 		this.kichHoat = kichHoat;
-		this.maNV = maNV;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(tenDangNhap);
+	public int getMaTaiKhoan() {
+		return maTaiKhoan;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TaiKhoan other = (TaiKhoan) obj;
-		return Objects.equals(tenDangNhap, other.tenDangNhap);
+	public void setMaTaiKhoan(int maTaiKhoan) {
+		this.maTaiKhoan = maTaiKhoan;
 	}
 	public String getTenDangNhap() {
 		return tenDangNhap;
@@ -66,6 +52,20 @@ public class TaiKhoan {
 	public String toString() {
 		return "TaiKhoan [tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + ", kichHoat=" + kichHoat + "]";
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(maTaiKhoan);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaiKhoan other = (TaiKhoan) obj;
+		return maTaiKhoan == other.maTaiKhoan;
+	}
 	
-	// Còn kiemTraTaiKhoan 
 }

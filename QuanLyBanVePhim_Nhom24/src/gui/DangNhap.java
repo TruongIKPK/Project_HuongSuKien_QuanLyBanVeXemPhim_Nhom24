@@ -99,18 +99,28 @@ public class DangNhap extends JFrame {
                 // lấy tài khoản từ db lên
                 try {
                 	taiKhoan = taiKhoanDAO.getTaiKhoan(tenTaiKhoan);
-                    
                 	System.out.println("đã tới đây!");
                 } catch (Exception e1) { 
                 	JOptionPane.showMessageDialog(null,e1.getMessage());
                     return;
                 }
+                
+                if(!taiKhoan.isKichHoat()) {
+                	JOptionPane.showMessageDialog(null, "Tài Khoản Đã Bị Khóa");
+                	return;
+                }
+                
                 String tenTKSQL = taiKhoan.getTenDangNhap().trim();
                 String matKhauSQL = taiKhoan.getMatKhau().trim();
+                
                 if (tenTaiKhoan.equals(tenTKSQL) && matKhau.equals(matKhauSQL)) {
-                	System.out.println("Dang Nhap Thanh cong!");
                     setVisible(false);
-                    new TrangChu().setVisible(true);
+                    try {
+						new TrangChu().setVisible(true);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 } else {
                 	JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu");
                     textField.requestFocus();

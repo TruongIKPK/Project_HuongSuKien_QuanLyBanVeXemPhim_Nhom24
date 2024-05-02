@@ -1,15 +1,17 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-
+import dao.ChucVuDAO;
+import dao.NhanVienDAO;
+import entity.ChucVu;
+import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -17,24 +19,27 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
 
 public class TrangChu extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JPanel panel = new JPanel();
-	private JLabel lblThoiGian;
-
+	private NhanVienDAO nhanVienDAO;
+	private NhanVien nhanVien;
+	private ChucVuDAO chucVuDAO;
+	private ChucVu chucVu;
+	private JLabel lblThoiGian_1;
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +48,6 @@ public class TrangChu extends JFrame {
 			public void run() {
 				try {
 					TrangChu frame = new TrangChu();
-					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,8 +58,32 @@ public class TrangChu extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public TrangChu() {
+	public void TruyXuatDAO() {
+		nhanVienDAO = NhanVienDAO.getInstance();
+		try {
+			nhanVien = nhanVienDAO.getNhanVienDN(DangNhap.taiKhoan.getMaTaiKhoan());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		int maChucVu = nhanVien.getChucVu().getMaChucVu();
+		chucVuDAO = ChucVuDAO.getInstance();
+		try {
+			chucVu = chucVuDAO.getChucVu(maChucVu);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	public TrangChu() throws Exception {
+		TruyXuatDAO();
+		String tenNhanVien = nhanVien.getTenNV().trim();
+		String tenChucVu = chucVu.getTenChucVu().trim();
+		int maChucVu = chucVu.getMaChucVu();
+		
 		setTitle("Trang Chủ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -112,7 +140,9 @@ public class TrangChu extends JFrame {
 		});
 		btnNhanVien.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Hopstarter-Soft-Scraps-User-Administrator-Blue.128.png")));
 		btnNhanVien.setFont(new Font("Tahoma", Font.BOLD, 22));
-		panel_7.add(btnNhanVien);
+		if(maChucVu == 1) {
+			panel_7.add(btnNhanVien);
+		}	
 		
 		JButton btnKhachHang = new JButton("Khách Hàng");
 		btnKhachHang.addActionListener(new ActionListener() {
@@ -145,7 +175,9 @@ public class TrangChu extends JFrame {
 		JButton btnRap = new JButton("QL Phim");
 		btnRap.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconsmind-Outline-Cinema.128.png")));
 		btnRap.setFont(new Font("Tahoma", Font.BOLD, 22));
-		panel_7.add(btnRap);
+		if (maChucVu == 1) {
+			panel_7.add(btnRap);
+		}
 		
 		JButton btnPhim = new JButton("Lịch Sử");
 		btnPhim.addActionListener(new ActionListener() {
@@ -200,15 +232,32 @@ public class TrangChu extends JFrame {
 		panel_3.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_3 = new JLabel("Nhân viên: Nguyễn Duy Tiến");
+		Box horizontalBox = Box.createHorizontalBox();
+		panel_4.add(horizontalBox, BorderLayout.WEST);
+		
+		
+		JLabel lblNewLabel_3 = new JLabel(tenChucVu + ": ");
 		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
-		panel_4.add(lblNewLabel_3, BorderLayout.NORTH);
+		horizontalBox.add(lblNewLabel_3);
 		
-		lblThoiGian = new JLabel("Thời gian: ");
+		JLabel lblNewLabel_3_1 = new JLabel(tenNhanVien);
+		lblNewLabel_3_1.setForeground(Color.WHITE);
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 24));
+		horizontalBox.add(lblNewLabel_3_1);
+		
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		panel_4.add(horizontalBox_1, BorderLayout.NORTH);
+		
+		JLabel lblThoiGian = new JLabel("Thời gian: ");
 		lblThoiGian.setForeground(Color.WHITE);
 		lblThoiGian.setFont(new Font("Tahoma", Font.BOLD, 24));
-		panel_4.add(lblThoiGian, BorderLayout.CENTER);
+		horizontalBox_1.add(lblThoiGian);
+		
+		lblThoiGian_1 = new JLabel("");
+		lblThoiGian_1.setForeground(Color.WHITE);
+		lblThoiGian_1.setFont(new Font("Tahoma", Font.BOLD, 24));
+		horizontalBox_1.add(lblThoiGian_1);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(64, 105, 229));
@@ -216,6 +265,17 @@ public class TrangChu extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_4 = new JButton("Đăng xuất");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận đăng xuất", JOptionPane.OK_CANCEL_OPTION);
+		        if (choice == JOptionPane.OK_OPTION) {
+		        	setVisible(false);
+                    new DangNhap().setVisible(true);
+		        } else {
+		            return;
+		        }
+			}
+		});
 		btnNewButton_4.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		panel_5.add(btnNewButton_4, BorderLayout.CENTER);
 		
@@ -232,8 +292,10 @@ public class TrangChu extends JFrame {
 		panel_1.add(rigidArea_1, BorderLayout.SOUTH);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setPreferredSize(lblNewLabel_3.getPreferredSize());
 		panel_1.add(lblNewLabel, BorderLayout.WEST);
+		
+		Component rigidArea_5 = Box.createRigidArea(panel_3.getPreferredSize());
+		panel_1.add(rigidArea_5, BorderLayout.WEST);
 		updateTime();
 	}
 	private String updateTime() {
@@ -254,6 +316,6 @@ public class TrangChu extends JFrame {
 		return formattedTime;
 	}
 	private void autoInputData() {
-		lblThoiGian.setText(updateTime());
+		lblThoiGian_1.setText(updateTime());
 	}
 }
