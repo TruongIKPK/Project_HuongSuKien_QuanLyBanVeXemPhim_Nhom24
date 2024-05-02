@@ -104,6 +104,12 @@ public class DangNhap extends JFrame {
                 	JOptionPane.showMessageDialog(null,e1.getMessage());
                     return;
                 }
+                
+                if(!taiKhoan.isKichHoat()) {
+                	JOptionPane.showMessageDialog(null, "Tài Khoản Đã Bị Khóa");
+                	return;
+                }
+                
                 String tenTKSQL = taiKhoan.getTenDangNhap().trim();
                 String matKhauSQL = taiKhoan.getMatKhau().trim();
                 

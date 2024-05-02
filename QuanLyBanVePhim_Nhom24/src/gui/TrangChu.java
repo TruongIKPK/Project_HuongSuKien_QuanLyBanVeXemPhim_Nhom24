@@ -11,6 +11,7 @@ import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -23,6 +24,7 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
 
 public class TrangChu extends JFrame {
@@ -41,19 +43,18 @@ public class TrangChu extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TrangChu frame = new TrangChu(null);
-//					
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TrangChu frame = new TrangChu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -79,6 +80,10 @@ public class TrangChu extends JFrame {
 	
 	public TrangChu() throws Exception {
 		TruyXuatDAO();
+		String tenNhanVien = nhanVien.getTenNV().trim();
+		String tenChucVu = chucVu.getTenChucVu().trim();
+		int maChucVu = chucVu.getMaChucVu();
+		
 		setTitle("Trang Chủ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -135,7 +140,9 @@ public class TrangChu extends JFrame {
 		});
 		btnNhanVien.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Hopstarter-Soft-Scraps-User-Administrator-Blue.128.png")));
 		btnNhanVien.setFont(new Font("Tahoma", Font.BOLD, 22));
-		panel_7.add(btnNhanVien);
+		if(maChucVu == 1) {
+			panel_7.add(btnNhanVien);
+		}	
 		
 		JButton btnKhachHang = new JButton("Khách Hàng");
 		btnKhachHang.addActionListener(new ActionListener() {
@@ -168,7 +175,9 @@ public class TrangChu extends JFrame {
 		JButton btnRap = new JButton("QL Phim");
 		btnRap.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconsmind-Outline-Cinema.128.png")));
 		btnRap.setFont(new Font("Tahoma", Font.BOLD, 22));
-		panel_7.add(btnRap);
+		if (maChucVu == 1) {
+			panel_7.add(btnRap);
+		}
 		
 		JButton btnPhim = new JButton("Lịch Sử");
 		btnPhim.addActionListener(new ActionListener() {
@@ -226,8 +235,7 @@ public class TrangChu extends JFrame {
 		Box horizontalBox = Box.createHorizontalBox();
 		panel_4.add(horizontalBox, BorderLayout.WEST);
 		
-		String tenNhanVien = nhanVien.getTenNV().trim();
-		String tenChucVu = chucVu.getTenChucVu().trim();
+		
 		JLabel lblNewLabel_3 = new JLabel(tenChucVu + ": ");
 		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -257,6 +265,17 @@ public class TrangChu extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_4 = new JButton("Đăng xuất");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận đăng xuất", JOptionPane.OK_CANCEL_OPTION);
+		        if (choice == JOptionPane.OK_OPTION) {
+		        	setVisible(false);
+                    new DangNhap().setVisible(true);
+		        } else {
+		            return;
+		        }
+			}
+		});
 		btnNewButton_4.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		panel_5.add(btnNewButton_4, BorderLayout.CENTER);
 		
