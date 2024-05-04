@@ -120,10 +120,10 @@ public class TrangChu extends JFrame {
 		btnBanVe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
+                ChonPhim chonPhim = new ChonPhim();
+                chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+                chonPhim.setVisible(true);
                 setVisible(false);
             }
         });
@@ -178,6 +178,15 @@ public class TrangChu extends JFrame {
 		if (maChucVu == 1) {
 			panel_7.add(btnRap);
 		}
+		btnRap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QuanLyPhim qlPhim = new QuanLyPhim();
+				qlPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlPhim.setExtendedState(MAXIMIZED_BOTH);
+				qlPhim.setVisible(true);
+                setVisible(false);
+			}
+		});
 		
 		JButton btnPhim = new JButton("Lịch Sử");
 		btnPhim.addActionListener(new ActionListener() {

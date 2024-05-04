@@ -9,7 +9,7 @@ public class ConnectDB {
 	public static Connection con = null;
 	private static ConnectDB instance = new ConnectDB();
 	
-	public void connect() throws SQLException, ClassNotFoundException{
+	public Connection connect() throws SQLException, ClassNotFoundException{
 		String url = "jdbc:sqlserver://localhost:49951;databaseName=QLBanVe";
 		String user = "sa";
 		String password = "123";
@@ -18,6 +18,7 @@ public class ConnectDB {
 		if (con != null) {
 			System.out.println("Kết nối thành công");
 		}
+		return con;
 	}
 	public void disconnect() {
 		if (con!= null) {

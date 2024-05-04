@@ -6,7 +6,6 @@ create table ChucVu(
 	PRIMARY KEY (maChucVu)
 )
 create table TaiKhoan(
-	maDangNhap int,
 	tenDangNhap char(20),
 	matKhau char(20),
 	trangThai bit,

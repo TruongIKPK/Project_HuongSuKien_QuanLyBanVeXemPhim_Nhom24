@@ -1,8 +1,8 @@
 package gui;
 import javax.swing.*;
-
+import connect.ConnectDB;
+import dao.GheDAO;
 import entity.Ghe;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -33,7 +33,9 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     private int soGheDaChon = 0;
     // 0 = null, 1 = Thường, 2 = VIP, 3 = Ghê Đôi.
     private int loaiGheDaChon = 0;
-	private ArrayList<Ghe> dsGhe = new ArrayList<>(); 
+	private ArrayList<Ghe> dsGhe = new ArrayList<Ghe>();
+	public ArrayList<Ghe> dsGheDaChon = new ArrayList<Ghe>();
+	private GheDAO gheDAO; 
 	 public static void main(String[] args) {
 	        EventQueue.invokeLater(new Runnable() {
 	            public void run() {
@@ -56,25 +58,20 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
 ////        this.setUndecorated(true); 
 //        device.setFullScreenWindow(this);
         
-    	Ghe ghe1 = new Ghe(0, "Thường", 0);
-        dsGhe.add(ghe1);
-
-        Ghe ghe2 = new Ghe(1, "VIP", 1);
-        dsGhe.add(ghe2);
-
-        Ghe ghe3 = new Ghe(2, "Ghế Đôi", 2);
-        dsGhe.add(ghe3);
-        
-        Ghe ghe4 = new Ghe(3, "Ghế Đôi", 1);
-        dsGhe.add(ghe4);
-        
-        Ghe ghe5 = new Ghe(4, "Ghế Đôi", 0);
-        dsGhe.add(ghe5);
-        
-        Ghe ghe6 = new Ghe(5, "Ghế Đôi", 2);
-        dsGhe.add(ghe6);
-    	
     	//
+    	
+    	gheDAO = GheDAO.getInstance();
+    	try {
+			dsGhe = gheDAO.getGhes();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	for (Ghe ghe : dsGhe) {
+			System.out.println(ghe.getTrangThai());
+		}
     	flag_checked = new boolean[136];
     	getContentPane().setLayout(new BorderLayout(0, 0));
     	
@@ -107,17 +104,11 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	btnNewButton_6.addActionListener(new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
-                TrangChu trangchu;
-				try {
-					trangchu = new TrangChu();
-					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	                trangchu.setExtendedState(MAXIMIZED_BOTH);
-	                trangchu.setVisible(true);
-	                setVisible(false);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}    
+				ChonPhim chonPhim = new ChonPhim();
+                chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+                chonPhim.setVisible(true);
+                setVisible(false);
             }   		
     	});
     	btnNewButton_6.setBorderPainted(false);
@@ -154,6 +145,11 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	phongChieu.setForeground(new Color(255, 255, 255));
     	phongChieu.setFont(new Font("Dialog", Font.BOLD, 20));
     	horizontalBox_2.add(phongChieu);
+    	
+    	JLabel phongChieu_1 = new JLabel("Cinema 5");
+    	phongChieu_1.setForeground(Color.WHITE);
+    	phongChieu_1.setFont(new Font("Dialog", Font.BOLD, 20));
+    	horizontalBox_2.add(phongChieu_1);
     	
     	Box horizontalBox_3 = Box.createHorizontalBox();
     	verticalBox.add(horizontalBox_3);
@@ -279,15 +275,6 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	verticalBox_2.add(rigidArea_2);
     	
     	btndatVe = new JButton("Đặt Vé");
-    	btndatVe.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent e) {
-    			DichVu dichvu = new DichVu();
-				dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				dichvu.setExtendedState(MAXIMIZED_BOTH);
-				dichvu.setVisible(true);
-                setVisible(false);
-    		}
-    	});
     	btndatVe.setForeground(Color.WHITE);
     	btndatVe.setBackground(Color.RED);
     	btndatVe.setBorderPainted(false);
@@ -358,6 +345,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	char row = 'A';
     	int flag1 = 1,flag2 = 1;
     	for (int i = 0; i < buttons.length; i++) {
+    		System.out.println();
             buttons[i] = new JButton( row + "" + (flag1++));
             flag2++;
             if(flag1 > 16) {
@@ -375,18 +363,18 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
             buttons[i].setForeground(Color.WHITE);
             buttons[i].setBorderPainted(false);
             
-            if (i < dsGhe.size()) {
-                if (dsGhe.get(i).getTrangThai() == 1) {
-                    buttons[i].setBackground(maMau[4]);
-                    buttons[i].setEnabled(false);
-                    buttons[i].setForeground(Color.WHITE);
-                }
-                if (dsGhe.get(i).getTrangThai() == 2) {
-                    buttons[i].setBackground(maMau[5]);
-                    buttons[i].setEnabled(false);
-                    buttons[i].setForeground(Color.WHITE);
-                }
+           
+            if (dsGhe.get(i).getTrangThai() == 2) {
+                buttons[i].setBackground(maMau[4]);
+                buttons[i].setEnabled(false);
+                buttons[i].setForeground(Color.WHITE);
             }
+            if (dsGhe.get(i).getTrangThai() == 3) {
+                buttons[i].setBackground(maMau[5]);
+                buttons[i].setEnabled(false);
+                buttons[i].setForeground(Color.WHITE);
+            }
+            
             if(i < 128) {
             	panel_15.add(buttons[i]);
             }else {
@@ -489,7 +477,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	Component rigidArea_12 = Box.createRigidArea(new Dimension(20, 20));
     	panel_16.add(rigidArea_12);
     	
-    	
+    	btndatVe.addActionListener(this);
     	for (int i = 0; i < buttons.length; i++) {
             buttons[i].addActionListener(this);
         }
@@ -528,6 +516,14 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
+		if (obj.equals(btndatVe)) {
+			
+			DichVu dichvu = new DichVu();
+			dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			dichvu.setExtendedState(MAXIMIZED_BOTH);
+			dichvu.setVisible(true);
+            setVisible(false);
+		}
 		for (int i = 0; i < buttons.length; i++) {
             if (obj.equals(buttons[i])) {
             	if((!flag_checked[i])) {	
@@ -572,6 +568,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
             			}
                         JButton button = (JButton) obj;
                         chuoiGhe = chuoiGhe + button.getText() + " ";
+                        dsGheDaChon.add(dsGhe.get(i));
                         thongTinGhe.setText(chuoiGhe);
                         button.setBackground(maMau[3]);
                         soGheDaChon++;
@@ -592,6 +589,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
             			chuoiGhe = "";
             			loaiGheDaChon = 0;
             		}
+            		dsGheDaChon.remove(dsGhe.get(i));
                     thongTinGhe.setText(chuoiGhe);   
             		flag_checked[i] = false;
             	}

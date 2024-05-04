@@ -5,47 +5,49 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.DichVuDAO;
+import entity.ChiTietDichVu;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
-
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.JTextArea;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.CardLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.SpringLayout;
 import java.awt.Rectangle;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
-public class DichVu extends JFrame {
+public class DichVu extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField[] textfield;
 	private JTextField textField_1;
+	private DichVuDAO dichVuDAO;
+	private ArrayList<entity.DichVu> dichVus = new ArrayList<entity.DichVu>();
+	private int[] sldv = new int[dichVus.size()];
+	private JButton[] giam;
+	private JButton[] tang;
+	private JTextField[] textField;
+	private JButton btnNewButton_13_1;
+	public ArrayList<ChiTietDichVu> dsCacDichVuChon = new ArrayList<>();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -66,6 +68,19 @@ public class DichVu extends JFrame {
 	 * Create the frame.
 	 */
 	public DichVu() {
+		dichVuDAO = DichVuDAO.getInstance();
+		
+		try {
+			dichVus = dichVuDAO.getDichVus();
+			System.out.println("Lay duoc danh sach");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Khong lay duoc danh sach");
+			e.printStackTrace();
+		}
+		for(int i=0; i< dichVus.size(); i++) {
+			System.out.println(dichVus.get(i).getHinhAnh());
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1145, 683);
 		contentPane = new JPanel();
@@ -121,16 +136,7 @@ public class DichVu extends JFrame {
 		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 20));
 		panel_5.add(rigidArea_1, BorderLayout.EAST);
 		
-		JButton btnNewButton_13_1 = new JButton("Tiêp Tục");
-		btnNewButton_13_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ThanhToan thanhtoan = new ThanhToan();
-				thanhtoan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				thanhtoan.setExtendedState(MAXIMIZED_BOTH);
-				thanhtoan.setVisible(true);
-                setVisible(false);
-			}
-		});
+		btnNewButton_13_1 = new JButton("Tiêp Tục");
 		btnNewButton_13_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_13_1.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnNewButton_13_1.setBackground(Color.LIGHT_GRAY);
@@ -158,7 +164,6 @@ public class DichVu extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		scrollPane.setColumnHeaderView(panel_1);
-//		scrollPane.setColumnHeaderView(panel_1);
 		
 		Box verticalBox = Box.createVerticalBox();
 		panel_1.add(verticalBox);
@@ -166,7 +171,11 @@ public class DichVu extends JFrame {
 		int dem = 0, sl = 5;
 		
 		Box horizontalBox = null;
-		for(int i = 0; i < sl; i++) {
+		textField = new JTextField[dichVus.size()];
+		giam = new JButton[dichVus.size()];
+	    tang = new JButton[dichVus.size()];
+		
+		for(int i = 0; i < dichVus.size(); i++) {
 			JPanel panel_3_1 = new JPanel();
 			dem++;
             if(dem % 3 == 1) {
@@ -174,26 +183,35 @@ public class DichVu extends JFrame {
                 verticalBox.add(horizontalBox); 
             }
             horizontalBox.add(panel_3_1);
+            
 			JLabel lblNewLabel_1_1 = new JLabel("");
 			lblNewLabel_1_1.setBorder(BorderFactory.createEmptyBorder(0, 0, 2, 5));
 			lblNewLabel_1_1.setBounds(new Rectangle(2, 2, 3, 2));
 			lblNewLabel_1_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
-			ImageIcon icon = new ImageIcon(ChonGhe.class.getResource("/gui/test (1).png"));
-	    	Image img = icon.getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT); 
-	    	ImageIcon newIcon = new ImageIcon(img);
+			String urlString = dichVus.get(i).getHinhAnh(); 
+		    URL imageURL;
+			imageURL = getClass().getResource(urlString);
+			try {
+				BufferedImage image = ImageIO.read(imageURL);
+				Image scaledImage = image.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+				ImageIcon newIcon = new ImageIcon(scaledImage);
+				lblNewLabel_1_1.setIcon(newIcon);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		    
 	    	panel_3_1.setLayout(new BorderLayout(0, 0));
-	    	lblNewLabel_1_1.setIcon(newIcon);
 			panel_3_1.add(lblNewLabel_1_1, BorderLayout.WEST);
-			
 			Box verticalBox_1 = Box.createVerticalBox();
 			verticalBox_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
 			panel_3_1.add(verticalBox_1);
 			
-			JLabel lblNewLabel_2_1 = new JLabel("KUNGFU PANDA");
+			JLabel lblNewLabel_2_1 = new JLabel(dichVus.get(i).getTenDichVu());
 			lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 23));
 			verticalBox_1.add(lblNewLabel_2_1);
 			
-			JLabel lblNewLabel_3_1 = new JLabel("- Thêm 29,000đ nhận ngay bắp ngọt lớn");
+			JLabel lblNewLabel_3_1 = new JLabel(dichVus.get(i).getMoTa());
 			lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			verticalBox_1.add(lblNewLabel_3_1);
 			
@@ -201,34 +219,42 @@ public class DichVu extends JFrame {
 			lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			verticalBox_1.add(lblNewLabel_4_1);
 			
-			JLabel lblNewLabel_5_1 = new JLabel("Giá: 199.000,00 ₫");
+			double number = dichVus.get(i).getGiaBan();
+			DecimalFormat decimalFormat = new DecimalFormat("#,###");
+			String formattedNumber = decimalFormat.format(number);
+			
+			JLabel lblNewLabel_5_1 = new JLabel(formattedNumber);
 			lblNewLabel_5_1.setFont(new Font("Tahoma", Font.BOLD, 23));
 			verticalBox_1.add(lblNewLabel_5_1);
 			
 			JPanel panel_3 = new JPanel();
 			verticalBox_1.add(panel_3);
 			
-			JButton btnNewButton = new JButton(" - ");
-			btnNewButton.setBorderPainted(false);
-			btnNewButton.setForeground(Color.WHITE);
-			btnNewButton.setBackground(new Color(0, 189, 214));
-			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 25));
+			giam[i] = new JButton(" - ");
+			giam[i].setBorderPainted(false);
+			giam[i].setForeground(Color.WHITE);
+			giam[i].setBackground(new Color(0, 189, 214));
+			giam[i].setFont(new Font("Tahoma", Font.PLAIN, 25));
 			
-			textField = new JTextField(2);
-			textField.setFocusTraversalPolicyProvider(true);
-			textField.setHorizontalAlignment(SwingConstants.CENTER);
-			textField.setText("1");
-			textField.setFont(new Font("Tahoma", Font.BOLD, 25));
-			textField.setColumns(2);
 			
-			JButton button = new JButton("+");
-			button.setBorderPainted(false);
-			button.setBackground(new Color(0, 189, 214));
-			button.setForeground(Color.WHITE);
-			button.setFont(new Font("Tahoma", Font.PLAIN, 25));
-			panel_3.add(btnNewButton);
-			panel_3.add(textField);
-			panel_3.add(button);
+			textField[i] = new JTextField(2);
+		    textField[i].setFocusTraversalPolicyProvider(true);
+		    textField[i].setHorizontalAlignment(SwingConstants.CENTER);
+		    textField[i].setText("0");
+		    textField[i].setFont(new Font("Tahoma", Font.BOLD, 25));
+		    textField[i].setColumns(2);
+			
+			Arrays.fill(sldv, 0);
+			
+			tang[i] = new JButton("+");
+			tang[i].setBorderPainted(false);
+			tang[i].setBackground(new Color(0, 189, 214));
+			tang[i].setForeground(Color.WHITE);
+			tang[i].setFont(new Font("Tahoma", Font.PLAIN, 25));
+			
+			panel_3.add(giam[i]);
+			panel_3.add(textField[i]);
+			panel_3.add(tang[i]);
 			
 			if(sl % 3 == 1 && i+1 == sl) {
 				Dimension chieurong = panel_3_1.getPreferredSize();
@@ -241,6 +267,55 @@ public class DichVu extends JFrame {
 				Component rigidArea1 = Box.createRigidArea(chieurong);
 				horizontalBox.add(rigidArea1);
 			}
-		}	
+		}
+		btnNewButton_13_1.addActionListener(this);
+		for (int i = 0; i < tang.length; i++) {
+			tang[i].addActionListener(this);
+        }
+		for (int i = 0; i < giam.length; i++) {
+			giam[i].addActionListener(this);
+        }
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if(obj.equals(btnNewButton_13_1)) {
+			for (int i = 0; i < textField.length; i++) {
+				int sl = Integer.parseInt(textField[i].getText());
+				if(sl > 0) {
+					ChiTietDichVu chiTietDichVu = new ChiTietDichVu(dichVus.get(i).getMaDichVu(), sl);
+					dsCacDichVuChon.add(chiTietDichVu);
+				}
+			}
+			ThanhToan thanhtoan = new ThanhToan();
+			thanhtoan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			thanhtoan.setExtendedState(MAXIMIZED_BOTH);
+			thanhtoan.setVisible(true);
+            setVisible(false);
+		}
+		
+		for (int i = 0; i < tang.length; i++) {
+			int sl = Integer.parseInt(textField[i].getText());
+			System.out.println(sl);
+			if (obj.equals(tang[i])) {
+				sl++;
+				textField[i].setText(String.valueOf(sl));
+			}
+		}
+		for (int i = 0; i < giam.length; i++) {
+			int sl = Integer.parseInt(textField[i].getText());
+			System.out.println(sl);
+			if (obj.equals(giam[i])) {
+				if (sl <= 0) {
+					return;
+				}else {
+					sl--;
+					
+					textField[i].setText(String.valueOf(sl));
+				}
+			}
+		}
 	}
 }

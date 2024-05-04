@@ -156,12 +156,12 @@ public class ChonXuatChieu extends JFrame {
 
 	 private JPanel createMoviePanel(String movieName, String movieInfo) {
 	        JPanel pnlTao = new JPanel(new BorderLayout());
-	        JLabel image = new JLabel(new ImageIcon(ChonXuatChieuTest.class.getResource("/gui/phim.png")));
+//	        JLabel image = new JLabel(new ImageIcon(ChonXuatChieuTest.class.getResource("/gui/phim.png")));
 	        JLabel nameLabel = new JLabel("Tên phim: " + movieName);
 //	        pnlTao.setLayout(new GridLayout(0,1));
 	        nameLabel.setFont(new Font("TimeNewRoman", ABORT, 20));
 	        pnlTao.setBorder(new EmptyBorder(10, 10, 10, 10));
-	        pnlTao.add(image,BorderLayout.WEST);
+	//        pnlTao.add(image,BorderLayout.WEST);
 	        pnlTao.add(nameLabel,BorderLayout.NORTH);
 
 	        JTextArea infoArea = new JTextArea("Thông tin phim:\n" + movieInfo);

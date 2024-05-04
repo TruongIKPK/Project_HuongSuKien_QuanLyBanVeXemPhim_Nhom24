@@ -6,6 +6,7 @@ public class Ghe {
 	private int maGhe;
 	private String loaiGhe;
 	private int trangThai;
+	private PhongChieu phongChieu;
 	public Ghe() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -14,11 +15,19 @@ public class Ghe {
 		super();
 		this.maGhe = maGhe;
 	}
-	public Ghe(int maGhe, String loaiGhe, int trangThai) {
+
+	public PhongChieu getPhongChieu() {
+		return phongChieu;
+	}
+	public void setPhongChieu(PhongChieu phongChieu) {
+		this.phongChieu = phongChieu;
+	}
+	public Ghe(int maGhe, String loaiGhe, int trangThai, PhongChieu phongChieu) {
 		super();
 		this.maGhe = maGhe;
 		this.loaiGhe = loaiGhe;
 		this.trangThai = trangThai;
+		this.phongChieu = phongChieu;
 	}
 	public int getMaGhe() {
 		return maGhe;

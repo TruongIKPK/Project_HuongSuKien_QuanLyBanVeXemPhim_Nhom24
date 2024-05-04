@@ -5,8 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import connectDB.ConnectSQL;
+import connect.ConnectDB;
 import entity.KhachHang;
 import entity.NhanVien;
 
@@ -14,7 +13,7 @@ public class KhachHang_DAO {
 	ArrayList<KhachHang> dskh;
 	
 	public static boolean addKhachHang(KhachHang kh) {
-		Connection con = ConnectSQL.getConnection();
+		Connection con = ConnectDB.getConnection();
 		PreparedStatement stmt = null;
 		int n = 0;
 		try {
@@ -32,7 +31,7 @@ public class KhachHang_DAO {
 		return n > 0;
 	}
 	public static boolean updateKhachHang(KhachHang kh) {
-		Connection con = ConnectSQL.getConnection();
+		Connection con = ConnectDB.getConnection();
 		PreparedStatement stmt = null;
 		int n = 0;
 		try {
@@ -51,12 +50,9 @@ public class KhachHang_DAO {
 		return n > 0;
 	}
 	public static KhachHang timTenKHTheoSDT(String sdtKH) {
-        // Thực hiện truy vấn SQL để kiểm tra số điện thoại trong cơ sở dữ liệu
-        // Trả về tên khách hàng nếu có, ngược lại trả về null
 		KhachHang khachHang = null;
-  
             String query = "SELECT * FROM KhachHang WHERE sdt = ?";
-            try (PreparedStatement preparedStatement = ConnectSQL.connect().prepareStatement(query)) {
+            try (PreparedStatement preparedStatement = ConnectDB.con.prepareStatement(query)) {
                 preparedStatement.setString(1, sdtKH);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {

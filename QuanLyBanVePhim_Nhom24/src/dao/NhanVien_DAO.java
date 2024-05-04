@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import connectDB.ConnectSQL;
+import connect.ConnectDB;
 import entity.NhanVien;
 
 public class NhanVien_DAO {
@@ -16,7 +15,7 @@ public class NhanVien_DAO {
 		dsnv = new ArrayList<NhanVien>();
 	}
 	public static boolean addNhanVien(NhanVien nv) {
-		Connection con = ConnectSQL.getConnection();
+		Connection con = ConnectDB.getConnection();
 		PreparedStatement stmt = null;
 		int n = 0;
 		try {
@@ -37,7 +36,7 @@ public class NhanVien_DAO {
 		return n > 0;
 	}
 	public static boolean updateNhanVien(NhanVien nv) throws SQLException {
-		Connection con = ConnectSQL.connect();
+		Connection con = ConnectDB.getConnection();
 		int n = 0;
 		try {
 			String sql = "update NhanVien set tenNV=?, email =?, ngaySinh =?, phai =?, sdt =? where maNhanVien =?";
@@ -58,8 +57,8 @@ public class NhanVien_DAO {
 	} 
 	public static ArrayList<NhanVien> timMaNVTheoTen(String tenNV) {
 		ArrayList<NhanVien> dsnv = new ArrayList<NhanVien>();
-		ConnectSQL.getInstance();
-		Connection con = ConnectSQL.getConnection();
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
 		try {
 			String sql = "Select * from NhanVien where tenNV = ?";
 			PreparedStatement ps = con.prepareStatement(sql);

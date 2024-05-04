@@ -20,6 +20,10 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LichSu extends JFrame {
 
@@ -60,31 +64,45 @@ public class LichSu extends JFrame {
 		
 		JPanel panel = new JPanel();
 		verticalBox.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		Box horizontalBox = Box.createHorizontalBox();
-		panel.add(horizontalBox);
+		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("Quay lại");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(3, 89, 157));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TrangChu trangchu;
+				try {
+					trangchu = new TrangChu();
+					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					trangchu.setExtendedState(MAXIMIZED_BOTH);
+					trangchu.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
-		horizontalBox.add(btnNewButton);
-		
-		Component rigidArea = Box.createRigidArea(new Dimension(1200, 20));
-		horizontalBox.add(rigidArea);
+		btnNewButton.setBackground(new Color(3, 89, 157));
+		panel.add(btnNewButton, BorderLayout.WEST);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Theo ngày", "Theo phim", "Theo tổng tiền"}));
-		horizontalBox.add(comboBox);
+		panel.add(comboBox, BorderLayout.EAST);
+		
+		JLabel lblNewLabel = new JLabel("Lịch Sử Bán Vé");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
+		panel.add(lblNewLabel, BorderLayout.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		verticalBox.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane);
+		panel_1.add(scrollPane, BorderLayout.SOUTH);
 		
 		// Tạo một đối tượng JTable với dữ liệu mẫu
         String[][] data = {{"1", "20/04/2024", "22:40", "The Matrix", "P2", "F9", "100000", "Đã đặt"}};

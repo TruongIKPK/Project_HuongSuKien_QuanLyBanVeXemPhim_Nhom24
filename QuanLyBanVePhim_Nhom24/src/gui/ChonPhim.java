@@ -11,6 +11,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Component;
+
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -36,6 +38,7 @@ import javax.swing.JTabbedPane;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Insets;
 
 public class ChonPhim extends JFrame {
 
@@ -90,6 +93,21 @@ public class ChonPhim extends JFrame {
 		panel_4.add(rigidArea, BorderLayout.WEST);
 		
 		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
+		btnNewButton_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TrangChu trangchu;
+				try {
+					trangchu = new TrangChu();
+					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                trangchu.setExtendedState(MAXIMIZED_BOTH);
+	                trangchu.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}    
+			}
+		});
 		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_13.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnNewButton_13.setBackground(Color.LIGHT_GRAY);
@@ -137,37 +155,28 @@ public class ChonPhim extends JFrame {
 		});
 		panel_11.add(btnNewButton_10);
 		
-		
 		panel_12.setBackground(Color.LIGHT_GRAY);
 		panel_11.add(panel_12);
 		
-		JButton btnNewButton_12 = new JButton("29/04");
-		btnNewButton_12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		JButton btnNewButton_12 = new JButton(currentDate.plusDays(0).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_12);
 		
-		JButton btnNewButton_14 = new JButton("30/04");
-		btnNewButton_14.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		JButton btnNewButton_14 = new JButton(currentDate.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_14);
 		
-		JButton btnNewButton_15 = new JButton("01/05");
+		JButton btnNewButton_15 = new JButton(currentDate.plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_15);
 		
-		JButton btnNewButton_16 = new JButton("02/05");
+		JButton btnNewButton_16 = new JButton(currentDate.plusDays(3).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_16);
 		
-		JButton btnNewButton_17 = new JButton("03/05");
+		JButton btnNewButton_17 = new JButton(currentDate.plusDays(4).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_17);
 		
-		JButton btnNewButton_18 = new JButton("04/05");
+		JButton btnNewButton_18 = new JButton(currentDate.plusDays(5).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_18);
 		
-		JButton btnNewButton_19 = new JButton("05/05");
+		JButton btnNewButton_19 = new JButton(currentDate.plusDays(6).format(DateTimeFormatter.ofPattern("dd/MM")));
 		panel_12.add(btnNewButton_19);
 		
 		JButton btnNewButton_20 = new JButton(">>");
@@ -210,7 +219,11 @@ public class ChonPhim extends JFrame {
 		panel_7.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(ChonPhim.class.getResource("/images/Iconoir-Team-Iconoir-Cinema-old.128.png")));
+		lblNewLabel_2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+		ImageIcon icon1 = new ImageIcon(ChonPhim.class.getResource("/images/ThanhToan.png"));
+    	Image img1 = icon1.getImage().getScaledInstance(100, 175, Image.SCALE_DEFAULT); 
+    	ImageIcon newIcon1 = new ImageIcon(img1);
+    	lblNewLabel_2.setIcon(newIcon1);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_7.add(lblNewLabel_2, BorderLayout.WEST);
 		
@@ -230,34 +243,97 @@ public class ChonPhim extends JFrame {
 		
 		JPanel panel_13 = new JPanel();
 		panel_9.add(panel_13, BorderLayout.CENTER);
-		panel_13.setLayout(new GridLayout(0, 7, 0, 0));
+		GridBagLayout gbl_panel_13 = new GridBagLayout();
+		gbl_panel_13.columnWidths = new int[]{85, 85, 85, 85, 85, 85, 85, 0};
+		gbl_panel_13.rowHeights = new int[]{76, 76, 0};
+		gbl_panel_13.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_13.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel_13.setLayout(gbl_panel_13);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_13.add(btnNewButton);
+		JButton btnNewButton = new JButton("9:00");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 0;
+		panel_13.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_13.add(btnNewButton_2);
+		JButton btnNewButton_2 = new JButton("10:00");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_2.gridx = 1;
+		gbc_btnNewButton_2.gridy = 0;
+		panel_13.add(btnNewButton_2, gbc_btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		panel_13.add(btnNewButton_3);
+		JButton btnNewButton_3 = new JButton("12:30");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
+		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_3.gridx = 2;
+		gbc_btnNewButton_3.gridy = 0;
+		panel_13.add(btnNewButton_3, gbc_btnNewButton_3);
 		
-		JButton btnNewButton_6 = new JButton("New button");
-		panel_13.add(btnNewButton_6);
+		JButton btnNewButton_6 = new JButton("15:00");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
+		gbc_btnNewButton_6.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_6.gridx = 3;
+		gbc_btnNewButton_6.gridy = 0;
+		panel_13.add(btnNewButton_6, gbc_btnNewButton_6);
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		panel_13.add(btnNewButton_4);
-		
-		JButton btnNewButton_5 = new JButton("New button");
-		panel_13.add(btnNewButton_5);
-		
-		JButton btnNewButton_7 = new JButton("New button");
-		panel_13.add(btnNewButton_7);
-		
-		JButton btnNewButton_8 = new JButton("New button");
-		panel_13.add(btnNewButton_8);
-		
-		JButton btnNewButton_9 = new JButton("New button");
-		panel_13.add(btnNewButton_9);
+		JButton btnNewButton_4 = new JButton("23:00");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonGhe chonghe = new ChonGhe();
+                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chonghe.setExtendedState(MAXIMIZED_BOTH);
+                chonghe.setVisible(true);
+                setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
+		gbc_btnNewButton_4.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_4.gridx = 4;
+		gbc_btnNewButton_4.gridy = 0;
+		panel_13.add(btnNewButton_4, gbc_btnNewButton_4);
 		panel_3.add(verticalBox);
 		
 		JPanel panel_7_1 = new JPanel();

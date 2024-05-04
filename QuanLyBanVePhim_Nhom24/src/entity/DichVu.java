@@ -6,6 +6,9 @@ public class DichVu {
 	private int maDichVu;
 	private String tenDichVu;
 	private double giaBan;
+	private String hinhAnh;
+	private String moTa;
+	
 	public DichVu() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -14,15 +17,31 @@ public class DichVu {
 		super();
 		this.maDichVu = maDichVu;
 	}
-	public DichVu(int maDichVu, String tenDichVu, double giaBan) {
+
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
+	public String getMoTa() {
+		return moTa;
+	}
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+	public DichVu(int maDichVu, String tenDichVu, double giaBan, String hinhAnh, String moTa) {
 		super();
 		this.maDichVu = maDichVu;
 		this.tenDichVu = tenDichVu;
 		this.giaBan = giaBan;
+		this.hinhAnh = hinhAnh;
+		this.moTa = moTa;
 	}
 	public int getMaDichVu() {
 		return maDichVu;
 	}
+	
 	public void setMaDichVu(int maDichVu) {
 		this.maDichVu = maDichVu;
 	}

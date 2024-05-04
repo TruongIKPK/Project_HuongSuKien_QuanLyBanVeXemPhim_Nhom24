@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
@@ -401,6 +403,11 @@ public class QuanLyKhachHang extends JFrame {
 		panel_10.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Quản lý phim");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setBackground(new Color(224, 88, 88));
@@ -409,6 +416,11 @@ public class QuanLyKhachHang extends JFrame {
 		panel_10.add(btnNewButton_2);
 		
 		JButton btnNewButton_4 = new JButton("Quản lý dịch vụ");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton_4.setForeground(Color.WHITE);
 		btnNewButton_4.setBorderPainted(false);
 		btnNewButton_4.setBackground(new Color(224, 88, 88));
@@ -455,6 +467,17 @@ public class QuanLyKhachHang extends JFrame {
 		panel_10.add(label_2);
 		
 		JButton btnNewButton_4_2_3 = new JButton("Đăng Xuất");
+		btnNewButton_4_2_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận đăng xuất", JOptionPane.OK_CANCEL_OPTION);
+		        if (choice == JOptionPane.OK_OPTION) {
+		        	setVisible(false);
+                    new DangNhap().setVisible(true);
+		        } else {
+		            return;
+		        }
+			}
+		});
 		btnNewButton_4_2_3.setBorderPainted(false);
 		btnNewButton_4_2_3.setForeground(Color.WHITE);
 		btnNewButton_4_2_3.setFont(new Font("Tahoma", Font.BOLD, 24));
