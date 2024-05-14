@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
 import javax.swing.ImageIcon;
 import java.awt.Button;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-public class GiaoDienLayVe1 extends JFrame {
+public class GiaoDienLayVe extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
@@ -54,7 +55,7 @@ public class GiaoDienLayVe1 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GiaoDienLayVe1 frame = new GiaoDienLayVe1();
+					GiaoDienLayVe frame = new GiaoDienLayVe();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,22 +67,10 @@ public class GiaoDienLayVe1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GiaoDienLayVe1() {
+	public GiaoDienLayVe() {
 		
-		Component rigidArea_1 = Box.createRigidArea(new Dimension(169, 844));
+		Component rigidArea_1 = Box.createRigidArea(new Dimension(189, 661));
 		getContentPane().add(rigidArea_1, BorderLayout.WEST);
-		
-		Component rigidArea_2 = Box.createRigidArea(new Dimension(169, 685));
-		getContentPane().add(rigidArea_2, BorderLayout.EAST);
-		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel lblNewLabel = new JLabel("THÔNG TIN ĐẶT VÉ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
@@ -91,47 +80,38 @@ public class GiaoDienLayVe1 extends JFrame {
 		panel_1.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(null);
 		
-		Component rigidArea_3 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_3.setBounds(-81, 821, 1212, 31);
-		panel_2.add(rigidArea_3);
+		JLabel lblNewLabel = new JLabel("THÔNG TIN ĐẶT VÉ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+		lblNewLabel.setBounds(363, 10, 461, 85);
+		panel_2.add(lblNewLabel);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(0, 10, 1191, 61);
-		panel_2.add(panel_4);
-		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel lblNewLabel_1 = new JLabel("Nhập mã vé :");
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		panel_4.add(lblNewLabel_1);
-		
-		textField_8 = new JTextField();
-		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panel_4.add(textField_8);
-		textField_8.setColumns(20);
-		
-		JButton btnNewButton = new JButton("Tìm kiếm");
-		btnNewButton.setBackground(Color.CYAN);
-		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		panel_4.add(btnNewButton);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(0, 151, 1201, 608);
+		panel_2.add(panel_3);
+		panel_3.setLayout(null);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(0, 73, 1159, 567);
-		panel_2.add(panel_5);
 		panel_5.setBackground(new Color(255, 250, 205));
-		panel_5.setLayout(new BorderLayout(0, 0));
+		panel_5.setBounds(0, 0, 1159, 501);
+		panel_3.add(panel_5);
+		panel_5.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("VÉ XEM PHIM");
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(368, 10, 418, 54);
 		panel_5.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("GẶP LẠI CHỊ BẦU");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblNewLabel_3.setBounds(378, 61, 418, 61);
 		panel_5.add(lblNewLabel_3);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(255, 250, 205));
+		panel_6.setBounds(51, 132, 1058, 368);
 		panel_5.add(panel_6);
 		panel_6.setLayout(null);
 		
@@ -141,9 +121,6 @@ public class GiaoDienLayVe1 extends JFrame {
 		panel_6.add(lblNewLabel_4);
 		
 		textField_9 = new JTextField();
-		textField_9.setEnabled(false);
-		textField_9.setEditable(false);
-		textField_9.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		textField_9.setBounds(188, 45, 285, 44);
 		panel_6.add(textField_9);
 		textField_9.setColumns(10);
@@ -205,10 +182,49 @@ public class GiaoDienLayVe1 extends JFrame {
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		
 		JButton btnNewButton_1 = new JButton("IN BILL");
-		btnNewButton_1.setBounds(933, 639, 241, 53);
-		panel_2.add(btnNewButton_1);
-		btnNewButton_1.setBackground(Color.CYAN);
 		btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 23));
+		btnNewButton_1.setBackground(Color.CYAN);
+		btnNewButton_1.setBounds(463, 509, 241, 53);
+		panel_3.add(btnNewButton_1);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(0, 105, 1191, 61);
+		panel_2.add(panel_4);
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewLabel_1 = new JLabel("Nhập mã vé :");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+		panel_4.add(lblNewLabel_1);
+		
+		textField_8 = new JTextField();
+		textField_8.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		panel_4.add(textField_8);
+		textField_8.setColumns(20);
+		
+		JButton btnNewButton = new JButton("Tìm kiếm");
+		btnNewButton.setBackground(Color.CYAN);
+		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+		panel_4.add(btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("Trở Lại");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonPhim chonPhim;
+				try {
+					chonPhim = new ChonPhim();
+					chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+	                chonPhim.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+			}
+		});
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_2.setBounds(10, 10, 153, 51);
+		panel_2.add(btnNewButton_2);
 	
 }
 }

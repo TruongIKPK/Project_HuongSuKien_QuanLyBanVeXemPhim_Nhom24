@@ -24,12 +24,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
 public class QuanLyPhim extends JFrame implements ActionListener{
 
@@ -52,7 +57,9 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 	private ArrayList<Phim> dsPhim;
 	private JCheckBox[] checkBoxes = new JCheckBox[8];
 	private DefaultTableModel model_table;
-
+	private QuanLySuatChieu qlnv;
+	private JButton btnQunLSut;
+	public static Phim phimDangChon;
 	/**
 	 * Launch the application.
 	 */
@@ -86,16 +93,17 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.WEST);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new BorderLayout(0, 0));
 		
 		Box verticalBox = Box.createVerticalBox();
-		panel.add(verticalBox);
+		panel.add(verticalBox, BorderLayout.NORTH);
 		
 		JPanel panel_5 = new JPanel();
 		verticalBox.add(panel_5);
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("Trang chủ");
+		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TrangChu trangchu;
@@ -128,6 +136,22 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		panel_6_1.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_1_1 = new JButton("Bán vé");
+		btnNewButton_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonPhim chonPhim;
+				try {
+					chonPhim = new ChonPhim();
+					chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+	                chonPhim.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton_1_1.setBorderPainted(false);
 		btnNewButton_1_1.setPreferredSize(new Dimension(20, 50));
 		btnNewButton_1_1.setForeground(Color.WHITE);
@@ -143,28 +167,28 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		panel_6.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_1 = new JButton("Quản lý phim");
+		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_6.add(btnNewButton_1);
 		
-		JPanel panel_7 = new JPanel();
-		verticalBox.add(panel_7);
-		panel_7.setLayout(new BorderLayout(0, 0));
-		
-		JButton btnNewButton_2 = new JButton("Quản lý dịch vụ");
-		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBackground(new Color(224, 88, 88));
-		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		panel_7.add(btnNewButton_2);
-		
 		JPanel panel_8 = new JPanel();
 		verticalBox.add(panel_8);
 		panel_8.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_3 = new JButton("Quản lý khách hàng");
+		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QuanLyKhachHang qlkh = new QuanLyKhachHang();
+				qlkh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlkh.setExtendedState(MAXIMIZED_BOTH);
+				qlkh.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnNewButton_3.setBorderPainted(false);
 		btnNewButton_3.setBackground(new Color(224, 88, 88));
 		btnNewButton_3.setForeground(new Color(255, 255, 255));
@@ -176,6 +200,7 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		panel_9.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_4 = new JButton("Quản lý nhân viên");
+		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				QuanLyNhanVien qlnv = new QuanLyNhanVien();
@@ -196,17 +221,41 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		panel_10.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_5 = new JButton("Lịch Sử");
+		btnNewButton_5.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LichSu lichsu = new LichSu();
+				lichsu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				lichsu.setExtendedState(MAXIMIZED_BOTH);
+				lichsu.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnNewButton_5.setBorderPainted(false);
 		btnNewButton_5.setForeground(new Color(255, 255, 255));
 		btnNewButton_5.setBackground(new Color(224, 88, 88));
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_10.add(btnNewButton_5);
 		
-		Component rigidArea_2 = Box.createRigidArea(new Dimension(20, 270));
-		verticalBox.add(rigidArea_2);
+		btnNewButton_1.setPreferredSize(new Dimension(20, 50));
+		
+		Component rigidArea_7 = Box.createRigidArea(new Dimension(20, 5));
+		panel_6.add(rigidArea_7, BorderLayout.NORTH);
+		btnNewButton_3.setPreferredSize(new Dimension(20, 50));
+		
+		Component rigidArea_9 = Box.createRigidArea(new Dimension(250, 5));
+		panel_8.add(rigidArea_9, BorderLayout.NORTH);
+		btnNewButton_4.setPreferredSize(new Dimension(20, 50));
+		
+		Component rigidArea_10 = Box.createRigidArea(new Dimension(0, 5));
+		panel_9.add(rigidArea_10, BorderLayout.NORTH);
+		btnNewButton_5.setPreferredSize(new Dimension(20, 50));
+		
+		Component rigidArea_11 = Box.createRigidArea(new Dimension(20, 5));
+		panel_10.add(rigidArea_11, BorderLayout.NORTH);
 		
 		JPanel panel_11 = new JPanel();
-		verticalBox.add(panel_11);
+		panel.add(panel_11, BorderLayout.SOUTH);
 		panel_11.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton_6 = new JButton("Đăng xuất");
@@ -221,32 +270,11 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		        }
 			}
 		});
-		btnNewButton_6.setForeground(new Color(255, 255, 255));
-		btnNewButton_6.setBackground(new Color(0, 206, 209));
-		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 20));
-		panel_11.add(btnNewButton_6);
-		
-		btnNewButton_1.setPreferredSize(new Dimension(20, 50));
-		
-		Component rigidArea_7 = Box.createRigidArea(new Dimension(20, 5));
-		panel_6.add(rigidArea_7, BorderLayout.NORTH);
-		btnNewButton_2.setPreferredSize(new Dimension(20, 50));
-		
-		Component rigidArea_8 = Box.createRigidArea(new Dimension(20, 5));
-		panel_7.add(rigidArea_8, BorderLayout.NORTH);
-		btnNewButton_3.setPreferredSize(new Dimension(20, 50));
-		
-		Component rigidArea_9 = Box.createRigidArea(new Dimension(250, 5));
-		panel_8.add(rigidArea_9, BorderLayout.NORTH);
-		btnNewButton_4.setPreferredSize(new Dimension(20, 50));
-		
-		Component rigidArea_10 = Box.createRigidArea(new Dimension(0, 5));
-		panel_9.add(rigidArea_10, BorderLayout.NORTH);
-		btnNewButton_5.setPreferredSize(new Dimension(20, 50));
-		
-		Component rigidArea_11 = Box.createRigidArea(new Dimension(20, 5));
-		panel_10.add(rigidArea_11, BorderLayout.NORTH);
 		btnNewButton_6.setPreferredSize(new Dimension(250, 50));
+		btnNewButton_6.setForeground(Color.WHITE);
+		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton_6.setBackground(new Color(0, 206, 209));
+		panel_11.add(btnNewButton_6, BorderLayout.NORTH);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -281,15 +309,6 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		btnNewButton_8.setForeground(new Color(255, 255, 255));
 		btnNewButton_8.setFont(new Font("Tahoma", Font.BOLD, 23));
 		panel_12.add(btnNewButton_8);
-		
-		Component rigidArea_6 = Box.createRigidArea(new Dimension(20, 20));
-		panel_12.add(rigidArea_6);
-		
-		JButton btnNewButton_9 = new JButton("    Lưu    ");
-		btnNewButton_9.setBackground(new Color(0, 206, 209));
-		btnNewButton_9.setForeground(new Color(255, 255, 255));
-		btnNewButton_9.setFont(new Font("Tahoma", Font.BOLD, 23));
-		panel_12.add(btnNewButton_9);
 		
 		Component rigidArea_3 = Box.createRigidArea(new Dimension(20, 20));
 		panel_12.add(rigidArea_3);
@@ -334,7 +353,7 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		JPanel panel_21 = new JPanel();
 		verticalBox_3.add(panel_21);
 		
-		JLabel lblNewLabel_6 = new JLabel("Ngày khỏi chiếu:");
+		JLabel lblNewLabel_6 = new JLabel("Ngày khởi chiếu:");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panel_21.add(lblNewLabel_6);
 		
@@ -513,7 +532,7 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		JPanel panel_23 = new JPanel();
 		verticalBox_2.add(panel_23);
 		
-		Component rigidArea_12 = Box.createRigidArea(new Dimension(820, 20));
+		Component rigidArea_12 = Box.createRigidArea(new Dimension(620, 20));
 		panel_23.add(rigidArea_12);
 		
 		btnthemPhim = new JButton("Thêm phim");
@@ -522,18 +541,30 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		btnthemPhim.setFont(new Font("Tahoma", Font.BOLD, 23));
 		panel_23.add(btnthemPhim);
 		
-		Component rigidArea_14 = Box.createRigidArea(new Dimension(20, 20));
-		panel_23.add(rigidArea_14);
+		
+		
+		Component rigidArea_14_1 = Box.createRigidArea(new Dimension(20, 20));
+		panel_23.add(rigidArea_14_1);
 		
 		btnxoaPhim = new JButton(" Xóa phim ");
 		btnxoaPhim.setForeground(new Color(255, 255, 255));
 		btnxoaPhim.setBackground(new Color(0, 206, 209));
 		btnxoaPhim.setFont(new Font("Tahoma", Font.BOLD, 23));
 		panel_23.add(btnxoaPhim);
+		btnxoaPhim.addActionListener(this);
+		
+		Component rigidArea_14 = Box.createRigidArea(new Dimension(20, 20));
+		panel_23.add(rigidArea_14);
+	
+		btnQunLSut = new JButton("Quản lý suất chiếu");
+		btnQunLSut.setForeground(Color.WHITE);
+		btnQunLSut.setFont(new Font("Tahoma", Font.BOLD, 23));
+		btnQunLSut.setBackground(new Color(0, 206, 209));
+		panel_23.add(btnQunLSut);
 		
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new BorderLayout(0, 0));
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.X_AXIS));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_4.add(scrollPane);
@@ -564,7 +595,7 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		scrollPane.setViewportView(table);
 		LoadDsPhim();	
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(27, 106, 173));
+		panel_2.setBackground(new Color(64, 105, 229));
 		contentPane.add(panel_2, BorderLayout.NORTH);
 		
 		Box verticalBox_1 = Box.createVerticalBox();
@@ -580,22 +611,20 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 		
 		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 40));
 		verticalBox_1.add(rigidArea_1);
-		
 		btnthemPhim.addActionListener(this);
-		btnxoaPhim.addActionListener(this);
+		btnQunLSut.addActionListener(this);
 	}
 	private void LoadDsPhim() {
-		try {
-			dsPhim = phim_DAO.dsPhim();
-			model_table.setRowCount(0);
-			for (Phim phim : dsPhim) {
-				model_table.addRow(new Object [] {phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(), phim.getNgayKetThuc(), phim.getTheLoai(),
-						phim.getGioiHanTuoi(), phim.getQuocGia(), phim.getNamSX(), phim.getThoiLuong()});
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    try {
+	        dsPhim = phim_DAO.dsPhim();
+	        model_table.setRowCount(0);
+	        for (Phim phim : dsPhim) {
+	            model_table.addRow(new Object[] {phim.getMaPhim(), phim.getTenPhim(), phim.getNgayKhoiChieu(), phim.getNgayKetThuc(), phim.getTheLoai(),
+	                    phim.getGioiHanTuoi(), phim.getQuocGia(), phim.getNamSX(), phim.getThoiLuong()});
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	private Phim createMovie() {
 		String tenPhim_tx = tenPhim.getText();
@@ -619,6 +648,19 @@ public class QuanLyPhim extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stubs
 		Object obj = e.getSource();
+		if(obj.equals(btnQunLSut)) {
+			int i = table.getSelectedRow();
+			if(i < 0) {
+				JOptionPane.showMessageDialog(null, "Vui Lòng Chọn Phim");
+			}else {
+				phimDangChon = dsPhim.get(i);
+				qlnv = new QuanLySuatChieu();
+				qlnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlnv.setLocationRelativeTo(null);
+				qlnv.setVisible(true);
+			}
+			
+		}
 		if(obj.equals(btnthemPhim)) {
 			Phim phim = createMovie();
 			try {

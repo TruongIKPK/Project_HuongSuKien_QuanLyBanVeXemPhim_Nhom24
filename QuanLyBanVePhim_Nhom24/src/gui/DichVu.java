@@ -46,8 +46,8 @@ public class DichVu extends JFrame implements ActionListener{
 	private JButton[] tang;
 	private JTextField[] textField;
 	private JButton btnNewButton_13_1;
-	public ArrayList<ChiTietDichVu> dsCacDichVuChon = new ArrayList<>();
-	
+	public static ArrayList<ChiTietDichVu> dsCacDichVuChon = new ArrayList<>();
+	public static double tongTien = 0;
 	/**
 	 * Launch the application.
 	 */
@@ -63,7 +63,6 @@ public class DichVu extends JFrame implements ActionListener{
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -110,18 +109,26 @@ public class DichVu extends JFrame implements ActionListener{
 		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
 		btnNewButton_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TrangChu trangchu;
-				try {
-					trangchu = new TrangChu();
-					trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					trangchu.setExtendedState(MAXIMIZED_BOTH);
-					trangchu.setVisible(true);
+				if(ChonGhe.flag) {
+					ChonGhe chonghe = new ChonGhe();
+					chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					chonghe.setExtendedState(MAXIMIZED_BOTH);
+					chonghe.setVisible(true);
 	                setVisible(false);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+	                ChonGhe.resetStaticVariables();
+				}else {
+					TrangChu trangchu;
+					try {
+						trangchu = new TrangChu();
+						trangchu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						trangchu.setExtendedState(MAXIMIZED_BOTH);
+						trangchu.setVisible(true);
+		                setVisible(false);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-				
 			}
 		});
 		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -302,6 +309,7 @@ public class DichVu extends JFrame implements ActionListener{
 			if (obj.equals(tang[i])) {
 				sl++;
 				textField[i].setText(String.valueOf(sl));
+				tongTien += dichVus.get(i).getGiaBan() * sl;
 			}
 		}
 		for (int i = 0; i < giam.length; i++) {
@@ -312,10 +320,15 @@ public class DichVu extends JFrame implements ActionListener{
 					return;
 				}else {
 					sl--;
-					
 					textField[i].setText(String.valueOf(sl));
+					tongTien -= dichVus.get(i).getGiaBan() * sl;
 				}
 			}
 		}
+	}
+	public static void resetStaticVariables() {
+		// TODO Auto-generated method stub
+		dsCacDichVuChon = new ArrayList<ChiTietDichVu>();
+		tongTien = 0;
 	}
 }

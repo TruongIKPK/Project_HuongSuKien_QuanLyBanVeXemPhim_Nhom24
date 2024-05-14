@@ -17,6 +17,12 @@ public class KhachHang {
 		super();
 		this.maKhachHang = maKhachHang;
 	}
+	
+	public KhachHang(int maKhachHang, int diemTichLuy) {
+		super();
+		this.maKhachHang = maKhachHang;
+		this.diemTichLuy = diemTichLuy;
+	}
 	public KhachHang(int maKhachHang, String tenKhachHang, boolean phai, String ngaySinh, String sdt, int diemTichLuy) {
 		super();
 		this.maKhachHang = maKhachHang;
@@ -25,6 +31,14 @@ public class KhachHang {
 		this.ngaySinh = ngaySinh;
 		this.sdt = sdt;
 		this.diemTichLuy = diemTichLuy;
+	}
+	
+	public KhachHang(String tenKhachHang, boolean phai, String ngaySinh, String sdt) {
+		super();
+		this.tenKhachHang = tenKhachHang;
+		this.phai = phai;
+		this.ngaySinh = ngaySinh;
+		this.sdt = sdt;
 	}
 	public int getMaKhachHang() {
 		return maKhachHang;

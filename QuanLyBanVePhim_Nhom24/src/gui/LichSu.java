@@ -15,6 +15,11 @@ import java.awt.Font;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import dao.HoaDonXemPhimDAO;
+import dao.SuatChieu_DAO;
+import entity.HoaDonXemPhim;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
@@ -23,12 +28,16 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class LichSu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private DefaultTableModel model_table;
+//	private HoaDonXemPhimDAO hdXemPhim_Dao;
+//	private ArrayList<HoaDonXemPhim> dsHD;
 
 	/**
 	 * Launch the application.
@@ -50,6 +59,13 @@ public class LichSu extends JFrame {
 	 * Create the frame.
 	 */
 	public LichSu() {
+//		hdXemPhim_Dao = new HoaDonXemPhimDAO().getInstance();
+//		try {
+//			dsHD = hdXemPhim_Dao.dsHDDaDat();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1709, 713);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -66,7 +82,7 @@ public class LichSu extends JFrame {
 		verticalBox.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("Quay lại");
+		JButton btnNewButton = new JButton("Thoát");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TrangChu trangchu;
@@ -105,21 +121,26 @@ public class LichSu extends JFrame {
 		panel_1.add(scrollPane, BorderLayout.SOUTH);
 		
 		// Tạo một đối tượng JTable với dữ liệu mẫu
-        String[][] data = {{"1", "20/04/2024", "22:40", "The Matrix", "P2", "F9", "100000", "Đã đặt"}};
-        String[] columnNames = {"Mã", "Ngày", "Thời gian", "Phim", "Phòng", "Ghế", "Tổng tiền", "Trạng thái"};
-        JTable table = new JTable(data, columnNames);
-        table.setModel(new DefaultTableModel(
+        JTable table = new JTable();
+      
+        model_table = new DefaultTableModel(
         	new Object[][] {
-        		{"1", "20/04/2024", "22:40", "The Matrix", "P2", "F9", "100000", "\u0110\u00E3 \u0111\u1EB7t"},
-        		{null, null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null, null},
-        		{null, null, null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
         	},
         	new String[] {
-        		"M\u00E3", "Ng\u00E0y", "Th\u1EDDi gian", "Phim", "Ph\u00F2ng", "Gh\u1EBF", "T\u1ED5ng ti\u1EC1n", "Tr\u1EA1ng th\u00E1i"
+        		"M\u00E3", "Ng\u00E0y", "Su\u1EA5t Chi\u1EBFu", "Phim", "Ph\u00F2ng", "T\u1ED5ng ti\u1EC1n"
         	}
-        ));
-        
+        );
+        model_table.setRowCount(0);
+//        for (HoaDonXemPhim hoaDonXemPhim : dsHD) {
+////        	SuatChieu sc = new SuatChieu_DAO().
+//        	model_table.addRow(new Object[] {
+//        			hoaDonXemPhim.getMaHDXemPhim(),
+//			});
+//		}
+        table.setModel(model_table);
         table.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		// Đặt chiều cao mới cho từng hàng trong bảng
 		table.setRowHeight(35);
@@ -131,5 +152,5 @@ public class LichSu extends JFrame {
         // Thêm table vào JScrollPane
         scrollPane.setViewportView(table);
 	}
-
+	
 }

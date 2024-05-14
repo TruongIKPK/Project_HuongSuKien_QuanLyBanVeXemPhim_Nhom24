@@ -36,7 +36,7 @@ public class TrangChu extends JFrame {
 	private JPanel contentPane;
 	private final JPanel panel = new JPanel();
 	private NhanVienDAO nhanVienDAO;
-	private NhanVien nhanVien;
+	public static NhanVien nhanVien;
 	private ChucVuDAO chucVuDAO;
 	private ChucVu chucVu;
 	private JLabel lblThoiGian_1;
@@ -120,11 +120,17 @@ public class TrangChu extends JFrame {
 		btnBanVe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChonPhim chonPhim = new ChonPhim();
-                chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonPhim.setExtendedState(MAXIMIZED_BOTH);
-                chonPhim.setVisible(true);
-                setVisible(false);
+                ChonPhim chonPhim;
+				try {
+					chonPhim = new ChonPhim();
+					chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+	                chonPhim.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 		
@@ -166,6 +172,7 @@ public class TrangChu extends JFrame {
 				dichvu.setExtendedState(MAXIMIZED_BOTH);
 				dichvu.setVisible(true);
                 setVisible(false);
+                ChonGhe.flag = false;
 			}
 		});
 		btnDichVu.setIcon(new ImageIcon(TrangChu.class.getResource("/images/Iconarchive-Fat-Sugar-Food-Popcorn.128.png")));

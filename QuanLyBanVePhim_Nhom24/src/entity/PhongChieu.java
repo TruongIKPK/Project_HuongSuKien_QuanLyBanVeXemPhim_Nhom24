@@ -6,22 +6,18 @@ import java.util.Objects;
 public class PhongChieu {
 	private int maPhong;
 	private String tenPhong;
-	private ArrayList<Ghe> ghe;
-	private ArrayList<SuatChieu> suatChieu;
 	public PhongChieu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PhongChieu(int maPhong) {
-		super();
-		this.maPhong = maPhong;
-	}
-	public PhongChieu(int maPhong, String tenPhong, ArrayList<Ghe> ghe, ArrayList<SuatChieu> suatChieu) {
+	public PhongChieu(int maPhong, String tenPhong) {
 		super();
 		this.maPhong = maPhong;
 		this.tenPhong = tenPhong;
-		this.ghe = ghe;
-		this.suatChieu = suatChieu;
+	}
+	public PhongChieu(int maPhong) {
+		super();
+		this.maPhong = maPhong;
 	}
 	public int getMaPhong() {
 		return maPhong;
@@ -34,18 +30,6 @@ public class PhongChieu {
 	}
 	public void setTenPhong(String tenPhong) {
 		this.tenPhong = tenPhong;
-	}
-	public ArrayList<Ghe> getGhe() {
-		return ghe;
-	}
-	public void setGhe(ArrayList<Ghe> ghe) {
-		this.ghe = ghe;
-	}
-	public ArrayList<SuatChieu> getSuatChieu() {
-		return suatChieu;
-	}
-	public void setSuatChieu(ArrayList<SuatChieu> suatChieu) {
-		this.suatChieu = suatChieu;
 	}
 	@Override
 	public int hashCode() {
@@ -64,9 +48,8 @@ public class PhongChieu {
 	}
 	@Override
 	public String toString() {
-		return "PhongChieu [maPhong=" + maPhong + ", tenPhong=" + tenPhong + ", ghe=" + ghe + ", suatChieu=" + suatChieu
-				+ "]";
+		return "PhongChieu [maPhong=" + maPhong + ", tenPhong=" + tenPhong + "]";
 	}
-	
+
 	
 }

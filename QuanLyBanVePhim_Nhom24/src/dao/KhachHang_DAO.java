@@ -5,68 +5,126 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import connect.ConnectDB;
+import entity.ChucVu;
 import entity.KhachHang;
 import entity.NhanVien;
+import entity.TaiKhoan;
 
 public class KhachHang_DAO {
-	ArrayList<KhachHang> dskh;
+	private ResultSet resultSet;
+	private ConnectDB dataBaseUtils;
+	private static KhachHang_DAO instance;
 	
-	public static boolean addKhachHang(KhachHang kh) {
-		Connection con = ConnectDB.getConnection();
-		PreparedStatement stmt = null;
-		int n = 0;
-		try {
-			stmt = con.prepareStatement("insert into KhachHang(maKhachHang, tenKhachHang, phai, ngaySinh, sdt, diemTichLuy) "
-					+ "values (0 , ?, ?, ?, ?, 0)");
-			stmt.setString(1, kh.getTenKhachHang());
-			stmt.setBoolean(2, kh.isPhai());
-			stmt.setString(3, kh.getNgaySinh());
-			stmt.setString(4, kh.getSdt());
-			n = stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} 
-		return n > 0;
-	}
-	public static boolean updateKhachHang(KhachHang kh) {
-		Connection con = ConnectDB.getConnection();
-		PreparedStatement stmt = null;
-		int n = 0;
-		try {
-			String sql =  "update KhachHang" + " set tenKH = ?" + ", phai=?" + ", ngaySinh=?" + ", sdt=?" + " where maKH = ?";
-			stmt = con.prepareStatement(sql);
-			//System.out.println(sql);
-			stmt.setString(1, kh.getTenKhachHang());
-			stmt.setBoolean(2, kh.isPhai());
-			stmt.setString(3, kh.getNgaySinh());
-			stmt.setString(4, kh.getSdt());
-			stmt.setInt(5, kh.getMaKhachHang());
-			n = stmt.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return n > 0;
-	}
-	public static KhachHang timTenKHTheoSDT(String sdtKH) {
-		KhachHang khachHang = null;
-            String query = "SELECT * FROM KhachHang WHERE sdt = ?";
-            try (PreparedStatement preparedStatement = ConnectDB.con.prepareStatement(query)) {
-                preparedStatement.setString(1, sdtKH);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                	int maKH = resultSet.getInt("maKH");
-                    String tenKH = resultSet.getString("tenKH");
-                    boolean phai = resultSet.getBoolean("phai");
-                    String ngaySinh = resultSet.getString("ngaySinh");
-                    String sdt = resultSet.getString("sdt");
-                    khachHang = new KhachHang(maKH, tenKH, phai, ngaySinh, sdt, maKH) ;
+	public KhachHang_DAO() {
+        super();
+        this.dataBaseUtils = new ConnectDB(); 
+    }
+	public static KhachHang_DAO getInstance() {
+        if (instance == null) {
+            synchronized (KhachHang_DAO.class) {
+                if (null == instance) {
+                    instance = new KhachHang_DAO();
                 }
-            } catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        return khachHang;
+            }
+        }
+        return instance;
+    }
+	public boolean addKhachHang(KhachHang kh) throws ClassNotFoundException {
+		try (Connection con = dataBaseUtils.connect()) {
+	    	PreparedStatement stmt = con.prepareStatement("insert into KhachHang(tenKhachHang, phai, ngaySinh, sdt) "
+					+ "values (?, ?, ?, ?)");
+	    	stmt.setString(1, kh.getTenKhachHang());
+			stmt.setBoolean(2, kh.isPhai());
+			stmt.setString(3, kh.getNgaySinh());
+			stmt.setString(4, kh.getSdt());
+			int n = stmt.executeUpdate();
+	        return n > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	public boolean updateKhachHang(KhachHang kh) throws ClassNotFoundException {
+	    try (Connection con = dataBaseUtils.connect()) {
+	        String sql =  "update KhachHang set tenKhachHang = ?, phai = ?, ngaySinh = ?, sdt = ? where maKhachHang = ?";
+	        PreparedStatement stmt = con.prepareStatement(sql);
+	        stmt.setString(1, kh.getTenKhachHang());
+	        stmt.setBoolean(2, kh.isPhai());
+	        stmt.setString(3, kh.getNgaySinh());
+	        stmt.setString(4, kh.getSdt());
+	        stmt.setInt(5, kh.getMaKhachHang());
+	        int n = stmt.executeUpdate();
+	        return n > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }   
+	}
+	public boolean updateDiemKhachHang(KhachHang kh) throws ClassNotFoundException {
+	    try (Connection con = dataBaseUtils.connect()) {
+	        String sql =  "update KhachHang set diemTichLuy = ? where maKhachHang = ?";
+	        PreparedStatement stmt = con.prepareStatement(sql);
+	        stmt.setInt(1, kh.getDiemTichLuy());
+	        stmt.setInt(2, kh.getMaKhachHang());
+	        int n = stmt.executeUpdate();
+	        return n > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }   
+	}
+	public ArrayList<KhachHang> timTenKHTheoSDT(String sdtKH) throws Exception {
+		ArrayList<KhachHang> khachHangs = new ArrayList<>();
+		String sql = String.format("SELECT * FROM KhachHang where sdt = ") + "'"+sdtKH+ "'";
+        try {
+        	dataBaseUtils.connect();
+	        resultSet = dataBaseUtils.excuteQueryRead(sql);
+            while (resultSet.next()) {
+            	KhachHang khachHang = null;
+            	int maKH = resultSet.getInt("maKhachHang");
+                String tenKH = resultSet.getString("tenKhachHang");
+                boolean phai = resultSet.getBoolean("phai");
+                String ngaySinh = resultSet.getString("ngaySinh");
+                String sdt = resultSet.getString("sdt");
+                int diemTichLuy = resultSet.getInt("diemTichLuy");
+                khachHang = new KhachHang(maKH, tenKH, phai, ngaySinh, sdt, diemTichLuy);
+                khachHangs.add(khachHang);
+            }
+        } catch (Exception e) {
+            throw new Exception("Lỗi lấy danh sách khách hàng");
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+		return khachHangs;
+    }
+	public ArrayList<KhachHang> timTenKHTheoHoTen(String hoTenKH) throws Exception {
+		ArrayList<KhachHang> khachHangs = new ArrayList<>();
+		String sql = "SELECT * FROM KhachHang WHERE tenKhachHang = "+ "N'" +hoTenKH + "'";
+        try {
+        	dataBaseUtils.connect();
+            resultSet = dataBaseUtils.excuteQueryRead(sql); 
+            while (resultSet.next()) {
+            	KhachHang khachHang = null;
+            	int maKH = resultSet.getInt("maKhachHang");
+                String tenKH = resultSet.getString("tenKhachHang");
+                boolean phai = resultSet.getBoolean("phai");
+                String ngaySinh = resultSet.getString("ngaySinh");
+                String sdt = resultSet.getString("sdt");
+                int diemTichLuy = resultSet.getInt("diemTichLuy");
+                khachHang = new KhachHang(maKH, tenKH, phai, ngaySinh, sdt, diemTichLuy);
+                khachHangs.add(khachHang);
+            }
+        } catch (Exception e) {
+            throw new Exception("Lỗi lấy danh sách khách hàng");
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        }
+		return khachHangs;
     }
 }

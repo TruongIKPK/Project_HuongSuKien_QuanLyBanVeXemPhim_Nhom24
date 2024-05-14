@@ -21,6 +21,13 @@ public class VeXemPhim {
 		this.maVeXemPhim = maVeXemPhim;
 		this.hdXemPhim = hdXemPhim;
 	}
+	
+	public VeXemPhim(HoaDonXemPhim hdXemPhim, double giaVe, Ghe ghe) {
+		super();
+		this.hdXemPhim = hdXemPhim;
+		this.giaVe = giaVe;
+		this.ghe = ghe;
+	}
 	@Override
 	public String toString() {
 		return "VeXemPhim [maVeXemPhim=" + maVeXemPhim + ", hdXemPhim=" + hdXemPhim + ", giaVe=" + giaVe + ", ghe="

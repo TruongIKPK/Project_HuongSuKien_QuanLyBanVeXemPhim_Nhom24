@@ -22,6 +22,11 @@ public class Phim {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Phim(int maPhim) {
+		super();
+		this.maPhim = maPhim;
+	}
 	public Phim(String tenPhim, String quocGia, int thoiLuong, String ngayKhoiChieu, String ngayKetThuc,
 			int gioiHanTuoi, int namSX, String theLoai, String hinhAnh) {
 		super();

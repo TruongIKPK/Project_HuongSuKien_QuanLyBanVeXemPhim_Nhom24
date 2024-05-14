@@ -9,43 +9,55 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.Component;
-
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.SpringLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.Insets;
+import dao.Phim_DAO;
+import dao.SuatChieu_DAO;
+import entity.Phim;
+import entity.SuatChieu;
 
-public class ChonPhim extends JFrame {
+import java.awt.GridLayout;
+import java.awt.SystemColor;
+
+public class ChonPhim extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private static LocalDate currentDate = LocalDate.now();
+	private JButton[] nutChonNgay;
+	private JScrollPane scrollPane;
+	private SuatChieu_DAO suatChieuDAO;
+	private ArrayList<SuatChieu> suatChieu;
+	private JButton[] nutSuatChieu;
+	private Phim_DAO phim_DAO;
+	private JButton btnNewButton_10;
+	private JPanel panel_12;
+	private JButton btnNewButton_20;
+	public static SuatChieu suatChieu1;
+	public static Phim phimDaChon;
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -64,8 +76,17 @@ public class ChonPhim extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public ChonPhim() {
+	public ChonPhim() throws Exception {
+		phim_DAO = Phim_DAO.getInstance();
+		nutChonNgay = new JButton[7];
+		suatChieuDAO = suatChieuDAO.getInstance();
+		LocalDateTime currentDate1 = LocalDateTime.now();
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String ngays = currentDate1.format(formatter1);
+		loadSuatChieu(ngays);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1079, 708);
 		contentPane = new JPanel();
@@ -92,7 +113,7 @@ public class ChonPhim extends JFrame {
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 		panel_4.add(rigidArea, BorderLayout.WEST);
 		
-		JButton btnNewButton_13 = new JButton("   Trở Lại   ");
+		JButton btnNewButton_13 = new JButton("   Thoát   ");
 		btnNewButton_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TrangChu trangchu;
@@ -140,53 +161,36 @@ public class ChonPhim extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_10.add(btnNewButton_1);
 		
+		JButton btnNewButton_1_1 = new JButton("Lấy Vé Xem Phim");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GiaoDienLayVe layve = new GiaoDienLayVe();
+				layve.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				layve.setExtendedState(MAXIMIZED_BOTH);
+				layve.setVisible(true);
+                setVisible(false);
+			}
+		});
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panel_10.add(btnNewButton_1_1);
+		
 		JPanel panel_11 = new JPanel();
 		panel_6.add(panel_11, BorderLayout.SOUTH);
 		
-		JPanel panel_12 = new JPanel();
+		panel_12 = new JPanel();
 		
-		JButton btnNewButton_10 = new JButton("<<");
-		btnNewButton_10.addActionListener(new ActionListener() {
-			@Override
-            public void actionPerformed(ActionEvent e) {
-                currentDate = currentDate.minusDays(5);
-                updateDateButtons(panel_12);
-            }
-		});
+		btnNewButton_10 = new JButton("<<");
 		panel_11.add(btnNewButton_10);
 		
 		panel_12.setBackground(Color.LIGHT_GRAY);
 		panel_11.add(panel_12);
 		
-		JButton btnNewButton_12 = new JButton(currentDate.plusDays(0).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_12);
+		for(int i = 0; i<7; i++) {
+			nutChonNgay[i] = new JButton(currentDate.plusDays(i).format(DateTimeFormatter.ofPattern("MM-dd")));
+			panel_12.add(nutChonNgay[i]);
+		}
 		
-		JButton btnNewButton_14 = new JButton(currentDate.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_14);
-		
-		JButton btnNewButton_15 = new JButton(currentDate.plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_15);
-		
-		JButton btnNewButton_16 = new JButton(currentDate.plusDays(3).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_16);
-		
-		JButton btnNewButton_17 = new JButton(currentDate.plusDays(4).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_17);
-		
-		JButton btnNewButton_18 = new JButton(currentDate.plusDays(5).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_18);
-		
-		JButton btnNewButton_19 = new JButton(currentDate.plusDays(6).format(DateTimeFormatter.ofPattern("dd/MM")));
-		panel_12.add(btnNewButton_19);
-		
-		JButton btnNewButton_20 = new JButton(">>");
-		btnNewButton_20.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentDate = currentDate.plusDays(7);
-                updateDateButtons(panel_12);
-            }
-		});
+		btnNewButton_20 = new JButton(">>");
 		panel_11.add(btnNewButton_20);
 		
 		JPanel panel_1 = new JPanel();
@@ -198,158 +202,143 @@ public class ChonPhim extends JFrame {
 		
 		Component rigidArea_3 = Box.createRigidArea(new Dimension(151, 575));
 		panel_1.add(rigidArea_3, BorderLayout.EAST);
-		ImageIcon icon = new ImageIcon(ChonGhe.class.getResource("/gui/test (1).png"));
-    	Image img = icon.getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT); 
-    	ImageIcon newIcon = new ImageIcon(img);
 		
 		JSeparator separator = new JSeparator();
 		panel_1.add(separator, BorderLayout.NORTH);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, BorderLayout.CENTER);
+		
+		LoadDSPhim();
+		for(int j = 0; j < 7; j++) {
+			nutChonNgay[j].addActionListener(this);
+		}
+		btnNewButton_10.addActionListener(this);
+		btnNewButton_20.addActionListener(this);
+}
+	public void LoadDSPhim() throws Exception {
+		nutSuatChieu = new JButton[suatChieu.size()];
 		
 		JPanel panel_3 = new JPanel();
 		scrollPane.setViewportView(panel_3);
-		panel_3.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		panel_3.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		Box verticalBox = Box.createVerticalBox();
-		
-		JPanel panel_7 = new JPanel();
-		verticalBox.add(panel_7);
-		panel_7.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
-		ImageIcon icon1 = new ImageIcon(ChonPhim.class.getResource("/images/ThanhToan.png"));
-    	Image img1 = icon1.getImage().getScaledInstance(100, 175, Image.SCALE_DEFAULT); 
-    	ImageIcon newIcon1 = new ImageIcon(img1);
-    	lblNewLabel_2.setIcon(newIcon1);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_7.add(lblNewLabel_2, BorderLayout.WEST);
-		
-		JPanel panel_9 = new JPanel();
-		panel_7.add(panel_9);
-		panel_9.setLayout(new BorderLayout(0, 0));
-		
-		Box horizontalBox = Box.createHorizontalBox();
-		panel_9.add(horizontalBox, BorderLayout.NORTH);
-		
-		JLabel lblNewLabel_4 = new JLabel("Điềm Báo Của Quỷ");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 18));
-		horizontalBox.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Phụ Đề 2D");
-		horizontalBox.add(lblNewLabel_5);
-		
-		JPanel panel_13 = new JPanel();
-		panel_9.add(panel_13, BorderLayout.CENTER);
-		GridBagLayout gbl_panel_13 = new GridBagLayout();
-		gbl_panel_13.columnWidths = new int[]{85, 85, 85, 85, 85, 85, 85, 0};
-		gbl_panel_13.rowHeights = new int[]{76, 76, 0};
-		gbl_panel_13.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_13.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		panel_13.setLayout(gbl_panel_13);
-		
-		JButton btnNewButton = new JButton("9:00");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
-                setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 0;
-		panel_13.add(btnNewButton, gbc_btnNewButton);
-		
-		JButton btnNewButton_2 = new JButton("10:00");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
-                setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_2.gridx = 1;
-		gbc_btnNewButton_2.gridy = 0;
-		panel_13.add(btnNewButton_2, gbc_btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("12:30");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
-                setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_3.gridx = 2;
-		gbc_btnNewButton_3.gridy = 0;
-		panel_13.add(btnNewButton_3, gbc_btnNewButton_3);
-		
-		JButton btnNewButton_6 = new JButton("15:00");
-		btnNewButton_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
-                setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
-		gbc_btnNewButton_6.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_6.gridx = 3;
-		gbc_btnNewButton_6.gridy = 0;
-		panel_13.add(btnNewButton_6, gbc_btnNewButton_6);
-		
-		JButton btnNewButton_4 = new JButton("23:00");
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ChonGhe chonghe = new ChonGhe();
-                chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonghe.setExtendedState(MAXIMIZED_BOTH);
-                chonghe.setVisible(true);
-                setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
-		gbc_btnNewButton_4.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_4.gridx = 4;
-		gbc_btnNewButton_4.gridy = 0;
-		panel_13.add(btnNewButton_4, gbc_btnNewButton_4);
 		panel_3.add(verticalBox);
 		
-		JPanel panel_7_1 = new JPanel();
-		verticalBox.add(panel_7_1);
-		panel_7_1.setLayout(new BorderLayout(0, 0));
+		for(int i=0; i < suatChieu.size(); i++) {
+			JPanel panel_7 = new JPanel();
+			verticalBox.add(panel_7);
+			
+			panel_7.setLayout(new BorderLayout(0, 0));
+			
+			JLabel lblNewLabel_2 = new JLabel("");
+			lblNewLabel_2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+			int maPhim = suatChieu.get(i).getPhim().getMaPhim();
+			Phim phim = phim_DAO.timPhim(maPhim);
+			String urlString = phim.getHinhAnh(); 
+		    URL imageURL;
+		    imageURL = getClass().getResource(urlString);
+			try {
+				BufferedImage image = ImageIO.read(imageURL);
+				Image scaledImage = image.getScaledInstance(100, 175, Image.SCALE_DEFAULT);
+				ImageIcon newIcon1 = new ImageIcon(scaledImage);
+				lblNewLabel_2.setIcon(newIcon1);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			panel_7.add(lblNewLabel_2, BorderLayout.WEST);
+			
+			JPanel panel_9 = new JPanel();
+			panel_7.add(panel_9);
+			panel_9.setLayout(new BorderLayout(0, 0));
+			
+			Box horizontalBox = Box.createHorizontalBox();
+			panel_9.add(horizontalBox, BorderLayout.NORTH);
+			
+			JLabel lblNewLabel_4 = new JLabel(phim.getTenPhim());
+			lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 25));
+			horizontalBox.add(lblNewLabel_4);
+			
+			JLabel lblNewLabel_5 = new JLabel("Phụ Đề 2D");
+			horizontalBox.add(lblNewLabel_5);
+			
+			JPanel panel_13 = new JPanel();
+			panel_9.add(panel_13, BorderLayout.CENTER);
+			panel_13.setLayout(new BorderLayout(0, 0));
+			
+			String giochieu = suatChieu.get(i).getGioChieu();
+			String giochieuShort = giochieu.substring(0, 5);
+			nutSuatChieu[i] = new JButton(giochieuShort);
+			nutSuatChieu[i].setFont(new Font("Tahoma", Font.BOLD, 25));
+			panel_13.add(nutSuatChieu[i]);
+
+		}	
+		for(int j = 0; j < nutSuatChieu.length; j++) {
+			nutSuatChieu[j].addActionListener(this);
+		}
 	}
-	private static void updateDateButtons(JPanel panel) {
-        panel.removeAll();
+	public void loadSuatChieu(String ngay) {
+		try {
+			suatChieu = suatChieuDAO.getSuatChieuTheoNgay(ngay);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void updateDateButtons() {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");
+	    for(int j = 0; j < 7; j++) {
+			nutChonNgay[j].setText(formatter.format(currentDate.plusDays(j+1)));
+		}
+	}
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM");
-        for (int i = 0; i < 7; i++) {
-            JButton button = new JButton(formatter.format(currentDate.plusDays(i)));
-            panel.add(button);
-        }
-
-        panel.revalidate();
-        panel.repaint();
-    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if(obj.equals(btnNewButton_10)) {
+			currentDate = currentDate.minusDays(5);
+            updateDateButtons();
+		}
+		if(obj.equals(btnNewButton_20)) {
+			currentDate = currentDate.plusDays(7);
+            updateDateButtons();
+		}
+	 for(int j = 0; j < 7; j++) {
+		 nutChonNgay[j].setBackground(UIManager.getColor("Button.background"));
+		 nutChonNgay[j].setForeground(Color.black);
+		 if(obj.equals(nutChonNgay[j])) {
+				int currentYear = LocalDateTime.now().getYear();
+				String ngay =  String.valueOf(currentYear ) +'-'+ nutChonNgay[j].getText();
+				nutChonNgay[j].setBackground(Color.red);
+				nutChonNgay[j].setForeground(Color.white);
+				loadSuatChieu(ngay);
+				try {
+					LoadDSPhim();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+	}
+		for(int i = 0; i < nutSuatChieu.length; i++) {
+			if (obj.equals(nutSuatChieu[i])) {
+				try {
+					phimDaChon = phim_DAO.timPhim(suatChieu.get(i).getPhim().getMaPhim());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				suatChieu1 = suatChieu.get(i);
+				ChonGhe chonghe = new ChonGhe();
+				chonghe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				chonghe.setExtendedState(MAXIMIZED_BOTH);
+				chonghe.setVisible(true);
+                setVisible(false);
+			}
+		}
+	}
 }

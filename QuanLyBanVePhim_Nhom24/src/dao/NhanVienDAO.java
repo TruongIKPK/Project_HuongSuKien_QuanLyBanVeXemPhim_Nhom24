@@ -53,9 +53,9 @@ public class NhanVienDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				int maNV = rs.getInt(1);
-				int maDangNhap = rs.getInt(2);
-				int maChucVu = rs.getInt(3);
-				String tenNhanVien = rs.getString(4);
+//				int maDangNhap = rs.getInt(2);
+//				int maChucVu = rs.getInt(3);
+//				String tenNhanVien = rs.getString(4);
 				String ngaySinh = rs.getString(5);
 				boolean phai = rs.getBoolean(6);
 				String sdt = rs.getString(7);

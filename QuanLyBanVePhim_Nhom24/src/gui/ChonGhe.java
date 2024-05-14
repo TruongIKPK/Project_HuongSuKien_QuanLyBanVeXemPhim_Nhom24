@@ -2,7 +2,15 @@ package gui;
 import javax.swing.*;
 import connect.ConnectDB;
 import dao.GheDAO;
+import dao.Phim_DAO;
+import dao.PhongChieuDAO;
+import dao.VeXemPhim_DAO;
 import entity.Ghe;
+import entity.Phim;
+import entity.PhongChieu;
+import entity.SuatChieu;
+import entity.VeXemPhim;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,7 +19,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 
-public class ChonGhe extends JFrame implements ActionListener, MouseListener{
+public class ChonGhe extends JFrame implements ActionListener{
 
     private static final long serialVersionUID = 1L;
     
@@ -28,14 +36,20 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
 	private JLabel tongTien;
 	private JButton btndatVe;
 	private JLabel thongTinGhe;
-    private String chuoiGhe;   
+    public static String chuoiGhe;   
     private boolean[] flag_checked;
     private int soGheDaChon = 0;
     // 0 = null, 1 = Thường, 2 = VIP, 3 = Ghê Đôi.
-    private int loaiGheDaChon = 0;
+    public static int loaiGheDaChon = 0;
 	private ArrayList<Ghe> dsGhe = new ArrayList<Ghe>();
-	public ArrayList<Ghe> dsGheDaChon = new ArrayList<Ghe>();
-	private GheDAO gheDAO; 
+	public static ArrayList<Ghe> dsGheDaChon = new ArrayList<Ghe>();
+	private GheDAO gheDAO;
+	private PhongChieuDAO phongChieuDAO;
+	private Phim_DAO phim_DAO;
+	public static double tongTienGhe = 0;
+	protected static boolean flag;
+	public VeXemPhim_DAO veXemPhim_DAO;
+	public ArrayList<VeXemPhim> dsvePhimDaBan;
 	 public static void main(String[] args) {
 	        EventQueue.invokeLater(new Runnable() {
 	            public void run() {
@@ -49,28 +63,37 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
 	            }
 	        });
 	    }
-
+	public static void resetStaticVariables() {
+		dsGheDaChon = new ArrayList<Ghe>();
+		tongTienGhe = 0;
+		chuoiGhe = "";
+	}
     public ChonGhe() {
-     	// Test
-    	
-//    	GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        GraphicsDevice device = env.getDefaultScreenDevice();
-////        this.setUndecorated(true); 
-//        device.setFullScreenWindow(this);
-        
-    	//
-    	
+
+    	phongChieuDAO = PhongChieuDAO.getInstance();
+    	phim_DAO = Phim_DAO.getInstance();
     	gheDAO = GheDAO.getInstance();
+    	veXemPhim_DAO = VeXemPhim_DAO.getInstance();
     	try {
 			dsGhe = gheDAO.getGhes();
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	for (Ghe ghe : dsGhe) {
-			System.out.println(ghe.getTrangThai());
+    	try {
+			dsvePhimDaBan = veXemPhim_DAO.dsVeDaDat(ChonPhim.suatChieu1.getMaSuatChieu());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
+    	for (Ghe ghe1 : dsGhe) {
+			for(VeXemPhim ve : dsvePhimDaBan) {
+				if(ve.getGhe().getMaGhe() == ghe1.getMaGhe()) {
+					ghe1.setTrangThai(2);
+				}
+			}
 		}
     	flag_checked = new boolean[136];
     	getContentPane().setLayout(new BorderLayout(0, 0));
@@ -104,11 +127,18 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	btnNewButton_6.addActionListener(new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
-				ChonPhim chonPhim = new ChonPhim();
-                chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                chonPhim.setExtendedState(MAXIMIZED_BOTH);
-                chonPhim.setVisible(true);
-                setVisible(false);
+				ChonPhim chonPhim;
+				try {
+					chonPhim = new ChonPhim();
+					chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+	                chonPhim.setVisible(true);
+	                setVisible(false);
+	                resetStaticVariables();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
             }   		
     	});
     	btnNewButton_6.setBorderPainted(false);
@@ -141,15 +171,19 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	Box horizontalBox_2 = Box.createHorizontalBox();
     	verticalBox.add(horizontalBox_2);
     	
-    	phongChieu = new JLabel("Cinema 5");
-    	phongChieu.setForeground(new Color(255, 255, 255));
-    	phongChieu.setFont(new Font("Dialog", Font.BOLD, 20));
-    	horizontalBox_2.add(phongChieu);
-    	
-    	JLabel phongChieu_1 = new JLabel("Cinema 5");
-    	phongChieu_1.setForeground(Color.WHITE);
-    	phongChieu_1.setFont(new Font("Dialog", Font.BOLD, 20));
-    	horizontalBox_2.add(phongChieu_1);
+    	SuatChieu suatchieu = ChonPhim.suatChieu1;
+    	PhongChieu phongChieu1;
+		try {
+			phongChieu1 = phongChieuDAO.timPhong(suatchieu.getPhongChieu().getMaPhong());
+			String tenPhong = phongChieu1.getTenPhong();
+			phongChieu = new JLabel("Cinema " + tenPhong);
+	    	phongChieu.setForeground(new Color(255, 255, 255));
+	    	phongChieu.setFont(new Font("Dialog", Font.BOLD, 20));
+	    	horizontalBox_2.add(phongChieu);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	
     	Box horizontalBox_3 = Box.createHorizontalBox();
     	verticalBox.add(horizontalBox_3);
@@ -159,7 +193,9 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	lblNewLabel_2.setForeground(new Color(255, 255, 255));
     	horizontalBox_3.add(lblNewLabel_2);
     	
-    	gioChieu = new JLabel("20:00");
+    	String giochieu = suatchieu.getGioChieu();
+		String giochieuShort = giochieu.substring(0, 5);
+    	gioChieu = new JLabel(giochieuShort);
     	gioChieu.setFont(new Font("Dialog", Font.BOLD, 20));
     	gioChieu.setForeground(Color.WHITE);
     	horizontalBox_3.add(gioChieu);
@@ -167,7 +203,8 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	Box horizontalBox_3_1 = Box.createHorizontalBox();
     	verticalBox.add(horizontalBox_3_1);
     	
-    	ngayChieu = new JLabel("21/03/2024");
+    	String ngay = suatchieu.getNgayChieu();
+    	ngayChieu = new JLabel(ngay);
     	ngayChieu.setForeground(Color.WHITE);
     	ngayChieu.setFont(new Font("Dialog", Font.BOLD, 20));
     	horizontalBox_3_1.add(ngayChieu);
@@ -183,9 +220,15 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	
     	Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
     	horizontalBox_4.add(rigidArea);
-    	
+    	Phim phim = null;
+    	try {
+			phim = phim_DAO.timPhim(suatchieu.getPhim().getMaPhim());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	JLabel lblNewLabel_3 = new JLabel("");
-    	ImageIcon icon = new ImageIcon(ChonGhe.class.getResource("/gui/test (1).png"));
+    	ImageIcon icon = new ImageIcon(ChonGhe.class.getResource(phim.getHinhAnh()));
     	Image img = icon.getImage().getScaledInstance(250, 350, Image.SCALE_DEFAULT); 
     	ImageIcon newIcon = new ImageIcon(img);
     	lblNewLabel_3.setIcon(newIcon);
@@ -222,7 +265,8 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	Box horizontalBox_5 = Box.createHorizontalBox();
     	verticalBox_1.add(horizontalBox_5);
     	
-    	tenPhim = new JLabel("Điềm Báo Của Quỷ");
+    	tenPhim = new JLabel(phim.getTenPhim());
+    	tenPhim.setHorizontalAlignment(SwingConstants.LEFT);
     	tenPhim.setFont(new Font("Dialog", Font.BOLD, 26));
     	horizontalBox_5.add(tenPhim);
     	
@@ -244,7 +288,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	lblNewLabel_5_1.setFont(new Font("Dialog", Font.BOLD, 24));
     	horizontalBox_6_1.add(lblNewLabel_5_1);
     	
-    	tongTien = new JLabel("100.000 đ");
+    	tongTien = new JLabel("0đ");
     	tongTien.setForeground(new Color(255, 0, 0));
     	tongTien.setFont(new Font("Dialog", Font.BOLD, 27));
     	horizontalBox_6_1.add(tongTien);
@@ -345,7 +389,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
     	char row = 'A';
     	int flag1 = 1,flag2 = 1;
     	for (int i = 0; i < buttons.length; i++) {
-    		System.out.println();
+ 
             buttons[i] = new JButton( row + "" + (flag1++));
             flag2++;
             if(flag1 > 16) {
@@ -482,47 +526,23 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
             buttons[i].addActionListener(this);
         }
     }
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if (obj.equals(btndatVe)) {
+			if(chuoiGhe == null || chuoiGhe.equals("")) {
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn ghế để tiếp tục");
+			}else {
+				DichVu dichvu = new DichVu();
+				dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				dichvu.setExtendedState(MAXIMIZED_BOTH);
+				dichvu.setVisible(true);
+	            setVisible(false);
+	        	flag = true;
+			}
 			
-			DichVu dichvu = new DichVu();
-			dichvu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			dichvu.setExtendedState(MAXIMIZED_BOTH);
-			dichvu.setVisible(true);
-            setVisible(false);
 		}
 		for (int i = 0; i < buttons.length; i++) {
             if (obj.equals(buttons[i])) {
@@ -539,6 +559,7 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
                     				return;
                     			}
                         		chuoiGhe = "Thường ";
+                        		
                         	}else if( i < 128 ) {
                         		if(loaiGheDaChon == 0) {
                     				loaiGheDaChon = 2;
@@ -547,20 +568,25 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
                     				return;
                     			}
                         		chuoiGhe = "VIP ";
+                        		
                         	}else {
                         		if(loaiGheDaChon == 0) {
                     				loaiGheDaChon = 3;
                     			}
                         		chuoiGhe = "Ghế Đôi ";
+                        		
                         	}
                     	}
             			int loaiHienChon;
             			if(i < 64) {
             				loaiHienChon = 1;
+            				tongTienGhe += 60000;
             			}else if(i < 128) {
             				loaiHienChon = 2;
+            				tongTienGhe += 80000;
             			}else {
             				loaiHienChon = 3;
+            				tongTienGhe += 130000;
             			}
             			if(loaiGheDaChon != loaiHienChon && soGheDaChon >= 1){
             				JOptionPane.showMessageDialog(this,"Phải chọn cùng loại ghế");
@@ -573,16 +599,21 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
                         button.setBackground(maMau[3]);
                         soGheDaChon++;
                         flag_checked[i] = true;
+                        int tongTienGheInt = (int) tongTienGhe;
+                        tongTien.setText(String.valueOf(tongTienGheInt) + " đ");
             		}
             	}else {
             		JButton button = (JButton) obj;
             		soGheDaChon--;
             		if(i < 64) {
             			button.setBackground(maMau[0]);
+            			tongTienGhe -= 60000;
                 	}else if( i < 128 ) {
                 		button.setBackground(maMau[1]);
+                		tongTienGhe -= 80000;
                 	}else {
                 		button.setBackground(maMau[2]);
+                		tongTienGhe -= 130000;
                 	}
             		chuoiGhe = chuoiGhe.replace(buttons[i].getText() + " ", "");
             		if(soGheDaChon == 0) {
@@ -592,6 +623,8 @@ public class ChonGhe extends JFrame implements ActionListener, MouseListener{
             		dsGheDaChon.remove(dsGhe.get(i));
                     thongTinGhe.setText(chuoiGhe);   
             		flag_checked[i] = false;
+            		int tongTienGheInt = (int) tongTienGhe;
+            		tongTien.setText(String.valueOf(tongTienGheInt) + " đ");
             	}
             }
         }

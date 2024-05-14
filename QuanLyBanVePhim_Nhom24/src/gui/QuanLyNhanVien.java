@@ -97,11 +97,11 @@ public class QuanLyNhanVien extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		panel.add(lblNewLabel);
 		
-		Component rigidArea = Box.createRigidArea(new Dimension(1530, 27));
+		Component rigidArea = Box.createRigidArea(new Dimension(1530, 45));
 		rigidArea.setBackground(Color.PINK);
 		panel.add(rigidArea, BorderLayout.NORTH);
 		
-		Component rigidArea_1 = Box.createRigidArea(new Dimension(1530, 14));
+		Component rigidArea_1 = Box.createRigidArea(new Dimension(1530, 66));
 		panel.add(rigidArea_1, BorderLayout.SOUTH);
 		
 		JPanel panel_7 = new JPanel();
@@ -109,44 +109,7 @@ public class QuanLyNhanVien extends JFrame {
 		panel.add(panel_7, BorderLayout.EAST);
 		panel_7.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBackground(new Color(64, 105, 229));
-		panel_7.add(panel_8, BorderLayout.SOUTH);
-		panel_8.setLayout(new BorderLayout(0, 0));
-		
-		Component rigidArea_8 = Box.createRigidArea(new Dimension(50, 39));
-		panel_8.add(rigidArea_8, BorderLayout.WEST);
-		
-		JLabel lblNewLabel_4 = new JLabel("3:57:47 PM");
-		lblNewLabel_4.setForeground(Color.WHITE);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
-		panel_8.add(lblNewLabel_4, BorderLayout.NORTH);
-		
-		Component rigidArea_9 = Box.createRigidArea(new Dimension(50, 20));
-		panel_8.add(rigidArea_9, BorderLayout.EAST);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(64, 105, 229));
-		panel_7.add(panel_5, BorderLayout.EAST);
-		
-		Box horizontalBox = Box.createHorizontalBox();
-		panel_5.add(horizontalBox);
-		
-		JLabel lblNewLabel_3 = new JLabel("Tên Nhân Viên: ");
-		lblNewLabel_3.setForeground(Color.WHITE);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
-		horizontalBox.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_5 = new JLabel("Trọng Nhân");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_5.setForeground(Color.WHITE);
-		horizontalBox.add(lblNewLabel_5);
-		
-		Component rigidArea_6 = Box.createRigidArea(new Dimension(20, 20));
-		horizontalBox.add(rigidArea_6);
-		
 		JPanel panel_9 = new JPanel();
-		panel_9.setPreferredSize(panel_5.getPreferredSize());
 		panel_9.setBackground(new Color(64, 105, 229));
 		panel.add(panel_9, BorderLayout.WEST);
 		
@@ -188,6 +151,13 @@ public class QuanLyNhanVien extends JFrame {
 		btnNewButton_3_1.setBorderPainted(false);
 		btnNewButton_3_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_2.add(btnNewButton_3_1);
+		
+		JButton btnNewButton_3_1_1 = new JButton("Xóa");
+		btnNewButton_3_1_1.setForeground(Color.WHITE);
+		btnNewButton_3_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton_3_1_1.setBorderPainted(false);
+		btnNewButton_3_1_1.setBackground(new Color(0, 189, 214));
+		panel_2.add(btnNewButton_3_1_1);
 		
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.CENTER);
@@ -359,6 +329,7 @@ public class QuanLyNhanVien extends JFrame {
 		panel_10.setLayout(new GridLayout(0, 1, 1, 2));
 		
 		JButton btnNewButton_1_1 = new JButton("Trang Chủ");
+		btnNewButton_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TrangChu trangchu;
@@ -388,6 +359,22 @@ public class QuanLyNhanVien extends JFrame {
 		panel_10.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1 = new JButton("Bán vé");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ChonPhim chonPhim;
+				try {
+					chonPhim = new ChonPhim();
+					chonPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                chonPhim.setExtendedState(MAXIMIZED_BOTH);
+	                chonPhim.setVisible(true);
+	                setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setBackground(new Color(224, 88, 88));
@@ -401,6 +388,16 @@ public class QuanLyNhanVien extends JFrame {
 		panel_10.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Quản lý phim");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				QuanLyPhim qlPhim = new QuanLyPhim();
+				qlPhim.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				qlPhim.setExtendedState(MAXIMIZED_BOTH);
+				qlPhim.setVisible(true);
+                setVisible(false);
+			}
+		});
+		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setBackground(new Color(224, 88, 88));
@@ -408,14 +405,8 @@ public class QuanLyNhanVien extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_10.add(btnNewButton_2);
 		
-		JButton btnNewButton_4 = new JButton("Quản lý dịch vụ");
-		btnNewButton_4.setForeground(Color.WHITE);
-		btnNewButton_4.setBorderPainted(false);
-		btnNewButton_4.setBackground(new Color(224, 88, 88));
-		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 22));
-		panel_10.add(btnNewButton_4);
-		
 		JButton btnNewButton_4_1 = new JButton("Quản lý khách hàng");
+		btnNewButton_4_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				QuanLyKhachHang qlkh = new QuanLyKhachHang();
@@ -432,13 +423,24 @@ public class QuanLyNhanVien extends JFrame {
 		panel_10.add(btnNewButton_4_1);
 		
 		JButton btnNewButton_4_2 = new JButton("Quản lý nhân viên");
+		btnNewButton_4_2.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_4_2.setEnabled(false);
 		btnNewButton_4_2.setForeground(Color.WHITE);
 		btnNewButton_4_2.setBackground(new Color(222, 225, 230));
 		btnNewButton_4_2.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel_10.add(btnNewButton_4_2);
 		
-		JButton btnNewButton_4_2_1 = new JButton("Thống kê");
+		JButton btnNewButton_4_2_1 = new JButton("Lịch sử");
+		btnNewButton_4_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_4_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LichSu lichsu = new LichSu();
+				lichsu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				lichsu.setExtendedState(MAXIMIZED_BOTH);
+				lichsu.setVisible(true);
+                setVisible(false);
+			}
+		});
 		btnNewButton_4_2_1.setForeground(Color.WHITE);
 		btnNewButton_4_2_1.setBorderPainted(false);
 		btnNewButton_4_2_1.setBackground(new Color(224, 88, 88));
